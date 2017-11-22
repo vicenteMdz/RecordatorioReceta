@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:id="@+id/app"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/treatement"
+            android:icon="@drawable/book_multiple_variant"
+            android:title="Tratamientos" ></item>
+        <item
+            android:id="@+id/medicines"
+            android:icon="@drawable/eyedropper"
+            android:title="Medicamentos" />
+        <item
+            android:id="@+id/patients"
+            android:icon="@drawable/account_multiple"
+            android:title="Personas">
+        </item>
+    </group>
+    <group android:id="@+id/configApp"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/profile"
+            android:icon="@drawable/account_edit"
+            android:title="Editar Perfil" />
+        <item
+            android:id="@+id/settings"
+            android:icon="@drawable/settings"
+            android:title="Configuración" />
+    </group>
+    <group android:id="@+id/extras"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/share"
+            android:icon="@drawable/ic_menu_share"
+            android:title="Compartir" />
+        <item
+            android:id="@+id/about"
+            android:icon="@drawable/information_outline"
+            android:title="Acerca de" />
+        <item
+            android:id="@+id/upgrade"
+            android:icon="@drawable/debug_step_out"
+            android:title="Actualiza a premium" />
+    </group>
+
+</menu>
