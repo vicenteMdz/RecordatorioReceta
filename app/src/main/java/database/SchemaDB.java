@@ -24,7 +24,7 @@ public class SchemaDB {
                     PacientesContract.PacientesEntry.EDAD + "  INTEGER, "+
                     PacientesContract.PacientesEntry.PESO + " INTEGER, "+
                     PacientesContract.PacientesEntry.TIPOSANGRE + " TEXT, "+
-                    "UNIQUE (" + PacientesContract.PacientesEntry.ID_PACIENTE + "));";
+                    "UNIQUE (" + PacientesContract.PacientesEntry.ID_PACIENTE + "))";
 
         return qryCreateTablePacientes;
     }
@@ -44,7 +44,7 @@ public class SchemaDB {
                 TratamientoContract.TratamientoEntry.SW_FINALIZADO + " CHAR NOT NULL, "+
                 "UNIQUE (" + TratamientoContract.TratamientoEntry.ID_TRATAMIENTO + ")" +
                 "FOREIGN KEY (" + TratamientoContract.TratamientoEntry.ID_PACIENTE + ") " +
-                "REFERENCES " + PacientesContract.PacientesEntry.TABLE_NAME + "(" + PacientesContract.PacientesEntry.ID_PACIENTE + "));";
+                "REFERENCES " + PacientesContract.PacientesEntry.TABLE_NAME + "(" + PacientesContract.PacientesEntry.ID_PACIENTE + "))";
 
         return qryCreateTablePacientes;
     }
@@ -70,7 +70,7 @@ public class SchemaDB {
                 MedicamentoContract.MedicamentoEntry.SWFINALIZADO + " CHAR NOT NULL, "+
                 "UNIQUE (" + MedicamentoContract.MedicamentoEntry.IDMEDICAMENTO + ")" +
                 "FOREIGN KEY (" + MedicamentoContract.MedicamentoEntry.IDTRATAMIENTO + ") " +
-                "REFERENCES " + TratamientoContract.TratamientoEntry.TABLE_NAME + "(" + TratamientoContract.TratamientoEntry.ID_TRATAMIENTO + "));";
+                "REFERENCES " + TratamientoContract.TratamientoEntry.TABLE_NAME + "(" + TratamientoContract.TratamientoEntry.ID_TRATAMIENTO + "))";
 
         return qryCreateTableMedicamentos;
     }
@@ -89,7 +89,7 @@ public class SchemaDB {
                 NotificacionContract.NotificacionEntry.SW_TOMADO + "  CHAR NOT NULL, "+
                 "UNIQUE (" + NotificacionContract.NotificacionEntry.ID_NOTIFICACION + ")" +
                 "FOREIGN KEY (" + NotificacionContract.NotificacionEntry.ID_MEDICAMENTO + ") " +
-                "REFERENCES " + MedicamentoContract.MedicamentoEntry.TABLE_NAME + "(" + MedicamentoContract.MedicamentoEntry.IDMEDICAMENTO + "));";
+                "REFERENCES " + MedicamentoContract.MedicamentoEntry.TABLE_NAME + "(" + MedicamentoContract.MedicamentoEntry.IDMEDICAMENTO + "))";
 
         return qryCreateTableNotificaciones;
     }
@@ -97,7 +97,7 @@ public class SchemaDB {
     public static String getQryCreateTableAccounts(){
         String qryCreateTableAccounts = "";
 
-        //sentencia sql para crear la tabla notificaciones
+        //sentencia sql para crear la tabla cuentas
         qryCreateTableAccounts = "CREATE TABLE " + CuentaContract.CuentaEntry.TABLE_NAME + " (" +
                 CuentaContract.CuentaEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "+
                 CuentaContract.CuentaEntry.ID_CUENTA + " INTEGER NOT NULL AUTOINCREMENT, "+
@@ -110,7 +110,7 @@ public class SchemaDB {
                 CuentaContract.CuentaEntry.FECHA_ALTA_PREMIUM + "  TEXT NOT NULL, "+
                 "UNIQUE (" + CuentaContract.CuentaEntry.ID_CUENTA + ")" +
                 "FOREIGN KEY (" + CuentaContract.CuentaEntry.ID_PACIENTE + ") " +
-                "REFERENCES " + PacientesContract.PacientesEntry.TABLE_NAME + "(" + PacientesContract.PacientesEntry.ID_PACIENTE + "));";
+                "REFERENCES " + PacientesContract.PacientesEntry.TABLE_NAME + "(" + PacientesContract.PacientesEntry.ID_PACIENTE + "))";
 
         return qryCreateTableAccounts;
     }
