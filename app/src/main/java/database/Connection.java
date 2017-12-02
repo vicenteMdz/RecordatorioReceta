@@ -1,6 +1,7 @@
 package database;
 
 import android.content.Context;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -10,10 +11,20 @@ import android.util.Log;
  */
 public class Connection extends SQLiteOpenHelper {
 
+    private static Connection connection;
     private static final int VERSION_BASEDATOS = 1;
+    private static final String NOMBRE_BD = "medirecord.db";
 
     public Connection (Context context){
-        super(context, "medirecord.db", null, VERSION_BASEDATOS);
+        super(context, NOMBRE_BD, null, VERSION_BASEDATOS);
+    }
+
+    //Singleton para la clase Connection para manejar las instancias de la Base de datos
+    public static synchronized Connection getConnection(Context context){
+        if(connection == null){
+            connection = new Connection(context);
+        }
+        return connection;
     }
 
     @Override
@@ -38,4 +49,5 @@ public class Connection extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
     }
+
 }
