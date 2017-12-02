@@ -5,14 +5,16 @@
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
     android:orientation="vertical"
-    app:cardBackgroundColor="@color/colorAccent"
-    app:cardCornerRadius="5dp">
+    app:cardBackgroundColor="@color/Blanco"
+    app:cardCornerRadius="5dp"
+    >
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:weightSum="3">
 
         <FrameLayout
             android:layout_width="match_parent"

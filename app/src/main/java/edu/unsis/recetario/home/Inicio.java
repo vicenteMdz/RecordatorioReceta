@@ -10,9 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import edu.unsis.recetario.R;
 
@@ -86,9 +88,21 @@ public class Inicio extends Fragment {
         nombePersona.setText("Octavio");
 
         fecha=(TextView)view.findViewById(R.id.txtFechaActual);
-        fecha.setText(dt.toString());
 
-        Calendar.getInstance().getTime();
+
+        //Obteniendo la fecha actual
+        Date dNow = new Date();
+        SimpleDateFormat diaN = new SimpleDateFormat ("dd");
+        String diaNum = diaN.format(dNow.getTime());
+
+        SimpleDateFormat diaL = new SimpleDateFormat("EEEE");
+
+        String dayOfTheWeek = diaL.format(dNow);
+        SimpleDateFormat mes = new SimpleDateFormat("MMMM");
+        String mesA = mes.format(dNow);
+
+        fecha.setText(dayOfTheWeek+" "+diaNum+" de "+mesA);
+
 
         ArrayList<DatosInicio> list=new ArrayList<>();
         list.add(new DatosInicio("","paracetamol","8pm","2 tabletas"));
