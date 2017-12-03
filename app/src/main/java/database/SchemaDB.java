@@ -38,8 +38,8 @@ public class SchemaDB {
 
         //sentencia sql para crear la tabla tratamientos
         qryCreateTablePacientes = "CREATE TABLE " + TratamientoContract.TratamientoEntry.TABLE_NAME + " (" +
-                TratamientoContract.TratamientoEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "+
-                TratamientoContract.TratamientoEntry.ID_TRATAMIENTO + " INTEGER NOT NULL AUTOINCREMENT, "+
+                //TratamientoContract.TratamientoEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "+
+                TratamientoContract.TratamientoEntry.ID_TRATAMIENTO + " INTEGER NOT NULL PRIMARY KEY, "+
                 TratamientoContract.TratamientoEntry.ID_PACIENTE + " INTEGER NOT NULL, "+
                 TratamientoContract.TratamientoEntry.NOMBRE_TRATAMIENTO + "  TEXT NOT NULL, "+
                 TratamientoContract.TratamientoEntry.DESCRIPCION + "  TEXT, "+
@@ -68,6 +68,7 @@ public class SchemaDB {
                 MedicamentoContract.MedicamentoEntry.PERIODOTOMA + " NUMERIC NOT NULL, "+
                 MedicamentoContract.MedicamentoEntry.DURACIONTOMA + " NUMERIC NOT NULL, "+
                 MedicamentoContract.MedicamentoEntry.TIPODURACION + " CHAR NOT NULL, "+
+                MedicamentoContract.MedicamentoEntry.TIPOPERIODOTOMA + " CHAR NOT NULL, "+
                 MedicamentoContract.MedicamentoEntry.FECHAINICIO + "  TEXT NOT NULL, "+
                 MedicamentoContract.MedicamentoEntry.HORAINICIO + "  TEXT NOT NULL, "+
                 MedicamentoContract.MedicamentoEntry.SWACTIVO + "  TEXT NOT NULL, "+
@@ -103,18 +104,18 @@ public class SchemaDB {
 
         //sentencia sql para crear la tabla cuentas
         qryCreateTableAccounts = "CREATE TABLE " + CuentaContract.CuentaEntry.TABLE_NAME + " (" +
-                CuentaContract.CuentaEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "+
-                CuentaContract.CuentaEntry.ID_CUENTA + " INTEGER NOT NULL AUTOINCREMENT, "+
-                CuentaContract.CuentaEntry.EMAIL + " INTEGER NOT NULL, "+
-                CuentaContract.CuentaEntry.ID_PACIENTE + "  TEXT NOT NULL, "+
+               // CuentaContract.CuentaEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "+
+                CuentaContract.CuentaEntry.ID_CUENTA + " INTEGER NOT NULL  PRIMARY KEY, "+
+                CuentaContract.CuentaEntry.EMAIL + " TEXT , "+
+                CuentaContract.CuentaEntry.ID_PACIENTE + "  INTEGER NOT NULL, "+
                 CuentaContract.CuentaEntry.TIPO_CUENTA + "  TEXT NOT NULL, "+
-                CuentaContract.CuentaEntry.ID_PACIENTE_PROPIETARIO + "  TEXT NOT NULL, "+
-                CuentaContract.CuentaEntry.SW_ACTIVO + "  TEXT NOT NULL, "+
+                CuentaContract.CuentaEntry.ID_PACIENTE_PROPIETARIO + "  INTEGER , "+
+                CuentaContract.CuentaEntry.SW_ACTIVO + "  TEXT , "+
                 CuentaContract.CuentaEntry.FECHA_ALTA + "  TEXT NOT NULL, "+
-                CuentaContract.CuentaEntry.FECHA_ALTA_PREMIUM + "  TEXT NOT NULL, "+
+                CuentaContract.CuentaEntry.FECHA_ALTA_PREMIUM + "  TEXT , "+
                 "UNIQUE (" + CuentaContract.CuentaEntry.ID_CUENTA + ")" +
                 "FOREIGN KEY (" + CuentaContract.CuentaEntry.ID_PACIENTE + ") " +
-                "REFERENCES " + PacientesContract.PacientesEntry.TABLE_NAME + "(" + PacientesContract.PacientesEntry.ID_PACIENTE + "))";
+                "REFERENCES " + PacientesContract.PacientesEntry.TABLE_NAME + "(" + PacientesContract.PacientesEntry.ID_PACIENTE + "));";
 
         return qryCreateTableAccounts;
     }

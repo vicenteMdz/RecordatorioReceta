@@ -1,5 +1,6 @@
 package edu.unsis.recetario.registration;
 
+import android.accounts.Account;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,7 +13,12 @@ import android.view.View;
 import android.widget.EditText;
 
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import edu.unsis.recetario.R;
+import edu.unsis.recetario.accounts.dao.AccountsDAOImpl;
+import edu.unsis.recetario.accounts.model.Cuenta;
 import edu.unsis.recetario.home.Home;
 import edu.unsis.recetario.patients.dao.PatientsDAO;
 import edu.unsis.recetario.patients.dao.PatientsDAOImpl;
@@ -125,7 +131,14 @@ public class Register extends AppCompatActivity {
             //Enfocar el Campo del Error
             focusView.requestFocus();
         } else {
+
+            //Obteniendo la fecha actual
+            Date dNow = new Date();
+            SimpleDateFormat diaN = new SimpleDateFormat ("dd/MM/yyyy");
+            String date = diaN.format(dNow.getTime());
+
             Pacientes patient=new Pacientes();
+            Cuenta cuenta=new Cuenta();
             patient.setNombre(nombre);
             patient.setPrimerApellido(primerApell);
             patient.setSegundoApellido(segundoApell);
@@ -133,9 +146,20 @@ public class Register extends AppCompatActivity {
             patient.setPeso(pes);
             patient.setTipoSangre(tipoSan);
 
+            //Dar de alta la cuenta
+            cuenta.setEmail(" ");
+            cuenta.setIdPaciente(1);
+            cuenta.setTipoCuenta("T");
+            cuenta.setIdPacientePropietario(1);
+            cuenta.setSwActivo(" ");
+            cuenta.setFechaAlta(date);
+            cuenta.setFechaAltaPremium("");
+
             PatientsDAOImpl patientDAO=new PatientsDAOImpl(this);
+            AccountsDAOImpl accountscuentaDAO=new AccountsDAOImpl(this);
             try {
                 patientDAO.insertPaciente(patient);
+                accountscuentaDAO.insertAccounts(cuenta);
             } catch (Exception e) {
                 Log.d(e.getLocalizedMessage(),"");
             }
@@ -143,12 +167,14 @@ public class Register extends AppCompatActivity {
 
            try {
                 patientDAO.getPacienteById(1);
-                Log.d("paciente",patientDAO.getPacienteById(1).toString());
+               accountscuentaDAO.getAccountsById(1);
+                //Log.d("paciente",patientDAO.getPacienteById(1).toString());
+               Log.d("Cuenta",accountscuentaDAO.getAccountsById(1).toString());
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            //Intent newAct = new Intent(getApplicationContext(), Home.class);
-            //startActivity(newAct);
+            Intent newAct = new Intent(getApplicationContext(), Home.class);
+            startActivity(newAct);
 
         }
     }

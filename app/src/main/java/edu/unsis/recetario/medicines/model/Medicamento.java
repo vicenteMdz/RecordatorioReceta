@@ -1,5 +1,10 @@
 package edu.unsis.recetario.medicines.model;
 
+import android.content.ContentValues;
+
+import edu.unsis.recetario.medicines.dao.MedicamentoContract;
+import edu.unsis.recetario.notifications.dao.NotificacionContract;
+
 /**
  * Created by Meltsan on 25/11/17.
  */
@@ -130,5 +135,24 @@ public class Medicamento {
 
     public void setTipoPeriodoToma(String tipoPeriodoToma) {
         this.tipoPeriodoToma = tipoPeriodoToma;
+    }
+
+    public ContentValues getContentValues(){
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(MedicamentoContract.MedicamentoEntry.IDMEDICAMENTO,this.idMedicamento);
+        contentValues.put(MedicamentoContract.MedicamentoEntry.IDTRATAMIENTO,this.idTratamiento);
+        contentValues.put(MedicamentoContract.MedicamentoEntry.NOMBRE,this.nombre);
+        contentValues.put(MedicamentoContract.MedicamentoEntry.DESCRIPCION,this.descripcion);
+        contentValues.put(MedicamentoContract.MedicamentoEntry.NUMERODOSIS,this.numeroDosis);
+        contentValues.put(MedicamentoContract.MedicamentoEntry.TIPODOSIS,this.tipoDosis);
+        contentValues.put(MedicamentoContract.MedicamentoEntry.PERIODOTOMA,this.periodoToma);
+        contentValues.put(MedicamentoContract.MedicamentoEntry.TIPOPERIODOTOMA,this.tipoPeriodoToma);
+        contentValues.put(MedicamentoContract.MedicamentoEntry.DURACIONTOMA,this.duracionToma);
+        contentValues.put(MedicamentoContract.MedicamentoEntry.TIPODURACION,this.tipoDuracion);
+        contentValues.put(MedicamentoContract.MedicamentoEntry.FECHAINICIO,this.fechaInicio);
+        contentValues.put(MedicamentoContract.MedicamentoEntry.HORAINICIO,this.horaInicio);
+        contentValues.put(MedicamentoContract.MedicamentoEntry.SWACTIVO,this.swActivo);
+        contentValues.put(MedicamentoContract.MedicamentoEntry.SWFINALIZADO,this.swFinalizado);
+        return contentValues;
     }
 }

@@ -70,7 +70,7 @@ public class AccountsDAOImpl extends AccountsDAO {
                 CuentaContract.CuentaEntry.ID_PACIENTE_PROPIETARIO + ","+
                 CuentaContract.CuentaEntry.SW_ACTIVO + ","+
                 CuentaContract.CuentaEntry.FECHA_ALTA+ ","+
-                CuentaContract.CuentaEntry.FECHA_ALTA_PREMIUM+ ","+
+                CuentaContract.CuentaEntry.FECHA_ALTA_PREMIUM+ " "+
                 "FROM " + CuentaContract.CuentaEntry.TABLE_NAME + " " +
                 "WHERE " +CuentaContract.CuentaEntry.ID_CUENTA+ " = " +
                 idAccounts;
@@ -82,14 +82,14 @@ public class AccountsDAOImpl extends AccountsDAO {
             Cursor cursor = database.rawQuery(qryGetAccounts, null);
             if(cursor.moveToNext()){
                 Cuenta cuenta=new Cuenta();
-                cuenta.setIdCuenta(cursor.getString(1));
-                cuenta.setEmail(cursor.getString(2));
-                cuenta.setIdPaciente(cursor.getInt(3));
-                cuenta.setTipoCuenta(cursor.getString(4));
-                cuenta.setIdPacientePropietario(cursor.getInt(5));
-                cuenta.setSwActivo(cursor.getString(6));
-                cuenta.setFechaAlta(cursor.getString(7));
-                cuenta.setFechaAltaPremium(cursor.getString(8));
+                cuenta.setIdCuenta(cursor.getString(0));
+                cuenta.setEmail(cursor.getString(1));
+                cuenta.setIdPaciente(cursor.getInt(2));
+                cuenta.setTipoCuenta(cursor.getString(3));
+                cuenta.setIdPacientePropietario(cursor.getInt(4));
+                cuenta.setSwActivo(cursor.getString(5));
+                cuenta.setFechaAlta(cursor.getString(6));
+                cuenta.setFechaAltaPremium(cursor.getString(7));
                 database.close();
                 return cuenta;
             }else{

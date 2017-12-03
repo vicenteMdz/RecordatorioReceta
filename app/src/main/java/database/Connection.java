@@ -39,7 +39,7 @@ public class Connection extends SQLiteOpenHelper {
             //crear tabla notificaciones
             //db.execSQL(SchemaDB.getQryCreateTableNotificaciones());
             //crear tabla cuentas
-            //db.execSQL(SchemaDB.getQryCreateTableAccounts());
+            db.execSQL(SchemaDB.getQryCreateTableAccounts());
         }catch (Exception e){
             Log.d("ErrorCreateSchemaDB",e.getCause().getMessage().toString());
         }
