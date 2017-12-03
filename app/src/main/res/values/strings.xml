@@ -28,4 +28,16 @@
         <item>Semanas</item>
         <item>Años</item>
     </string-array>
+    <string-array name="dosis">
+        <item>Capsulas</item>
+        <item>Pastillas</item>
+        <item>Tabletas</item>
+        <item>ml</item>
+    </string-array>
+    <string name="title_activity_add_medicines">add_medicines</string>
+
+
+    <string name="hello_world">Hello world!</string>
+
+
 </resources>
