@@ -71,13 +71,18 @@ public class Pacientes {
 
     @Override
     public String toString(){
-        return "idPaciente: " + this.idPaciente +
+        return
                 "nombre: " + this.nombrePaciente +
                 "primerApellido: " + this.primerApellido +
                 "segundoApellido: " + this.segundoApellido +
                 "edad: " + this.edad +
                 "peso: " + this.peso +
                 "tipoSangre: " + this.tipoSangre;
+    }
+
+
+    public int toString2() {
+        return idPaciente;
     }
 
     public static final String ID_PACIENTE = "id_paciente";
