@@ -28,8 +28,8 @@ public class SchedulingAlarm {
         this.context = context;
     }
 
-    public void createAlarm(Medicamento medicamento, Intent intent, PendingIntent pendingIntent) throws Exception{
-        Log.d("createAlarm","Configurando alarma");
+    public void createAlarm(Medicamento medicamento, PendingIntent pendingIntent) throws Exception{
+        Log.d("createAlarm","Configurando alarma***");
                 /* Retrieve a PendingIntent that will perform a broadcast */
         //Intent alarmIntent = new Intent(Home.this, AlarmReceiver.class);
         //PendingIntent pendingIntent = PendingIntent.getBroadcast(Home.this, 0, alarmIntent, 0);
@@ -39,6 +39,7 @@ public class SchedulingAlarm {
             //iniciamos el proceso en la fecha y hora especificada por el usuario
             SimpleDateFormat sdf= new SimpleDateFormat(DATEFORMAT);
             fechaInicioToma.setTime(sdf.parse(medicamento.getFechaInicio() + " " + medicamento.getHoraInicio()));
+            Log.d("fecha", fechaInicioToma.toString());
             if("M".equals(medicamento.getTipoPeriodoToma())){
                 /* Repitiendo alarma cada X MINUTOS */
                 alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, fechaInicioToma.getTimeInMillis(),
