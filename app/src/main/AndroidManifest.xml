@@ -12,7 +12,13 @@
         <activity android:name=".MainActivity" />
         <activity
             android:name=".splash.Splash"
-            android:theme="@style/SplashTheme" />
+            android:theme="@style/SplashTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".registration.Register" />
         <activity
             android:name=".home.Home"
@@ -22,12 +28,23 @@
 
         </activity>
         <activity android:name=".medicines.add_medicines">
-            <intent-filter>
+            <!--<intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            </intent-filter>-->
         </activity>
+        <activity android:name=".registration.Register" />
+        <activity
+            android:name=".home.Home"
+            android:label="@string/title_activity_home"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".treatements.AddTreatement"></activity>
+        <receiver android:name=".notifications.alarms.receive.AlarmReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

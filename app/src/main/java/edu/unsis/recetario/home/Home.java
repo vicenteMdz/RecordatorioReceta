@@ -1,9 +1,14 @@
 package edu.unsis.recetario.home;
 
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,7 +20,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import edu.unsis.recetario.R;
-import edu.unsis.recetario.registration.Register;
+import edu.unsis.recetario.medicines.model.Medicamento;
+import edu.unsis.recetario.notifications.alarms.receive.AlarmReceiver;
+import edu.unsis.recetario.notifications.alarms.schedule.SchedulingAlarm;
+import edu.unsis.recetario.notifications.model.Notificacion;
 import edu.unsis.recetario.treatements.AddTreatement;
 
 public class Home extends AppCompatActivity
@@ -32,8 +40,22 @@ public class Home extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                /*Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();*/
+                Intent alarmIntent = new Intent(Home.this, AlarmReceiver.class);
+                //agregar un id al intent para despues con ese id eliminar la notificacion
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(Home.this, 0, alarmIntent, 0);
+
+                SchedulingAlarm schedulingAlarm = new SchedulingAlarm(getBaseContext());
+                Medicamento m = new Medicamento();
+                m.setFechaInicio("2017-12-01 01:46:00");
+                m.setTipoPeriodoToma("M");
+                m.setPeriodoToma(1);
+                try{
+                    schedulingAlarm.createAlarm(m, pendingIntent);
+                }catch(Exception e){
+                    Log.d("error", e.getCause().getMessage());
+                }
             }
         });
 
@@ -45,6 +67,8 @@ public class Home extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        //setInitialFragmet();
+        getSupportActionBar().setTitle("Medicamentos para hoy");
     }
 
     @Override
@@ -86,8 +110,10 @@ public class Home extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.treatement) {
-            Intent intent = new Intent(this, AddTreatement.class);
+            Log.d("createIntent","launch intent");
+            Intent intent = new Intent(Home.this, AddTreatement.class);
             startActivity(intent);
+            Log.d("createIntent","launch intent");
         }/* else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {
@@ -98,10 +124,16 @@ public class Home extends AppCompatActivity
 
         } else if (id == R.id.nav_send) {
 
-        }
+        }*/
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);*/
+        drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void setInitialFragmet(){
+        FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
+        tx.replace(R.id.appBody, new Inicio());
+        tx.commit();
     }
 }

@@ -17,6 +17,7 @@ public class MedicamentoContract {
         public static final String  DESCRIPCION = "descripcion_medicamento";
         public static final String  NUMERODOSIS = "numero_dosis";
         public static final String  TIPODOSIS = "tipo_dosis";
+        public static final String  TIPOPERIODOTOMA = "tipo_periodo_toma";
         public static final String  PERIODOTOMA = "periodo_toma";
         public static final String  DURACIONTOMA = "duracion_toma";
         public static final String  TIPODURACION = "tipo_duracion";

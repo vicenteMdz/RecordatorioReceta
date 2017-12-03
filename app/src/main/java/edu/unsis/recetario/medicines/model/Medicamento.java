@@ -1,5 +1,10 @@
 package edu.unsis.recetario.medicines.model;
 
+import android.content.ContentValues;
+
+import edu.unsis.recetario.medicines.dao.MedicamentoContract;
+import edu.unsis.recetario.notifications.dao.NotificacionContract;
+
 /**
  * Created by Meltsan on 25/11/17.
  */
@@ -9,11 +14,12 @@ public class Medicamento {
     private int idTratamiento;
     private String nombre;
     private String descripcion;//descripción del medicamento, o instrucciones
-    private String numeroDosis; //especifica cuantas dosis tomar (1,2,3)
+    private float numeroDosis; //especifica cuantas dosis tomar (1,2,3)
     private String tipoDosis; //Se especifica si es pildora, pastilla, parche, ml, cucharaditas...
-    private String periodoToma; // si el medicamento se tomará cada 2, 4, 6 hrs, 0 para indicar la toma cuando sea necesario.
-    private String duracionToma; //por cuanto tiempo se tomará el medicamento, 2,3,4,5, continuo.
-    private char tipoDuracion; //si la duración es en Días, semanas, meses, años
+    private int periodoToma; // si el medicamento se tomará cada 2, 4, 6 hrs, 0 para indicar la toma cuando sea necesario.
+    private String tipoPeriodoToma; //M=minuto, H=hora, D=días, S=Semanas, etc...//
+    private int duracionToma; //por cuanto tiempo se tomará el medicamento, 2,3,4,5, continuo.
+    private String tipoDuracion; //si la duración es en Días, semanas, meses, años
     private String fechaInicio; //establece hora de inicio, a partir de esta calcular las tomas
     private String horaInicio; //establece el dia de inicio de la toma del medicamento
     private String swActivo;//medicamento activo
@@ -53,11 +59,11 @@ public class Medicamento {
         this.descripcion = descripcion;
     }
 
-    public String getNumeroDosis() {
+    public float getNumeroDosis() {
         return numeroDosis;
     }
 
-    public void setNumeroDosis(String numeroDosis) {
+    public void setNumeroDosis(float numeroDosis) {
         this.numeroDosis = numeroDosis;
     }
 
@@ -69,27 +75,27 @@ public class Medicamento {
         this.tipoDosis = tipoDosis;
     }
 
-    public String getPeriodoToma() {
+    public int getPeriodoToma() {
         return periodoToma;
     }
 
-    public void setPeriodoToma(String periodoToma) {
+    public void setPeriodoToma(int periodoToma) {
         this.periodoToma = periodoToma;
     }
 
-    public String getDuracionToma() {
+    public int getDuracionToma() {
         return duracionToma;
     }
 
-    public void setDuracionToma(String duracionToma) {
+    public void setDuracionToma(int duracionToma) {
         this.duracionToma = duracionToma;
     }
 
-    public char getTipoDuracion() {
+    public String getTipoDuracion() {
         return tipoDuracion;
     }
 
-    public void setTipoDuracion(char tipoDuracion) {
+    public void setTipoDuracion(String tipoDuracion) {
         this.tipoDuracion = tipoDuracion;
     }
 
@@ -121,5 +127,32 @@ public class Medicamento {
 
     public void setSwFinalizado(String swFinalizado) {
         this.swFinalizado = swFinalizado;
+    }
+
+    public String getTipoPeriodoToma() {
+        return tipoPeriodoToma;
+    }
+
+    public void setTipoPeriodoToma(String tipoPeriodoToma) {
+        this.tipoPeriodoToma = tipoPeriodoToma;
+    }
+
+    public ContentValues getContentValues(){
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(MedicamentoContract.MedicamentoEntry.IDMEDICAMENTO,this.idMedicamento);
+        contentValues.put(MedicamentoContract.MedicamentoEntry.IDTRATAMIENTO,this.idTratamiento);
+        contentValues.put(MedicamentoContract.MedicamentoEntry.NOMBRE,this.nombre);
+        contentValues.put(MedicamentoContract.MedicamentoEntry.DESCRIPCION,this.descripcion);
+        contentValues.put(MedicamentoContract.MedicamentoEntry.NUMERODOSIS,this.numeroDosis);
+        contentValues.put(MedicamentoContract.MedicamentoEntry.TIPODOSIS,this.tipoDosis);
+        contentValues.put(MedicamentoContract.MedicamentoEntry.PERIODOTOMA,this.periodoToma);
+        contentValues.put(MedicamentoContract.MedicamentoEntry.TIPOPERIODOTOMA,this.tipoPeriodoToma);
+        contentValues.put(MedicamentoContract.MedicamentoEntry.DURACIONTOMA,this.duracionToma);
+        contentValues.put(MedicamentoContract.MedicamentoEntry.TIPODURACION,this.tipoDuracion);
+        contentValues.put(MedicamentoContract.MedicamentoEntry.FECHAINICIO,this.fechaInicio);
+        contentValues.put(MedicamentoContract.MedicamentoEntry.HORAINICIO,this.horaInicio);
+        contentValues.put(MedicamentoContract.MedicamentoEntry.SWACTIVO,this.swActivo);
+        contentValues.put(MedicamentoContract.MedicamentoEntry.SWFINALIZADO,this.swFinalizado);
+        return contentValues;
     }
 }

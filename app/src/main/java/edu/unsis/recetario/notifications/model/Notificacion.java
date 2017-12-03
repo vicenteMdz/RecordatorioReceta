@@ -1,5 +1,10 @@
 package edu.unsis.recetario.notifications.model;
 
+import android.content.ContentValues;
+import android.database.Cursor;
+
+import edu.unsis.recetario.notifications.dao.NotificacionContract;
+
 /**
  * Created by Meltsan on 01/12/17.
  */
@@ -11,7 +16,7 @@ public class Notificacion {
     private String hora;
     /*T si el medicamento fué tomado, O si el medicamento no se tomó,
     y P cuando el medicamento no se ha tomado porque no ha llegado la hora*/
-    private char sw_tomado;
+    private String sw_tomado;
     private String descripcionToma;
 
 
@@ -45,11 +50,11 @@ public class Notificacion {
         this.hora = hora;
     }
 
-    public char getSw_tomado() {
+    public String getSw_tomado() {
         return sw_tomado;
     }
 
-    public void setSw_tomado(char sw_tomado) {
+    public void setSw_tomado(String sw_tomado) {
         this.sw_tomado = sw_tomado;
     }
 
@@ -58,4 +63,15 @@ public class Notificacion {
     }
 
     public void setDescripcionToma(String descripcionToma) { this.descripcionToma = descripcionToma;}
+
+    public ContentValues getContentValues(){
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(NotificacionContract.NotificacionEntry.ID_MEDICAMENTO,this.idMedicamento);
+        contentValues.put(NotificacionContract.NotificacionEntry.FECHA, this.fecha);
+        contentValues.put(NotificacionContract.NotificacionEntry.HORA, this.hora);
+        contentValues.put(NotificacionContract.NotificacionEntry.DESCRIPCION_TOMA, this.descripcionToma);
+        contentValues.put(NotificacionContract.NotificacionEntry.SW_TOMADO, this.sw_tomado);
+        return contentValues;
+    }
+
 }
