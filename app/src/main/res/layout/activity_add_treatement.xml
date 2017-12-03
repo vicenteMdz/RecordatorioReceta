@@ -117,12 +117,15 @@
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentStart="true" />
 
+
+                    
                     <Button
                         android:layout_width="103dp"
                         android:layout_height="match_parent"
                         android:text="Añadir"
                         android:id="@+id/button"
                         android:layout_gravity="right" />
+
 
                 </LinearLayout>
 
