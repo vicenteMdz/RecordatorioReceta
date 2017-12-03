@@ -15,7 +15,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import edu.unsis.recetario.R;
-import edu.unsis.recetario.registration.Register;
 import edu.unsis.recetario.treatements.AddTreatement;
 
 public class Home extends AppCompatActivity
