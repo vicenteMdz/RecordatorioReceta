@@ -92,6 +92,7 @@ public class SchemaDB {
                 NotificacionContract.NotificacionEntry.HORA + "  TEXT NOT NULL, "+
                 NotificacionContract.NotificacionEntry.DESCRIPCION_TOMA + "  TEXT , "+
                 NotificacionContract.NotificacionEntry.SW_TOMADO + "  CHAR NOT NULL, "+
+                NotificacionContract.NotificacionEntry.INTENT_ID + "  TEXT, "+
                 "UNIQUE (" + NotificacionContract.NotificacionEntry.ID_NOTIFICACION + ")" +
                 "FOREIGN KEY (" + NotificacionContract.NotificacionEntry.ID_MEDICAMENTO + ") " +
                 "REFERENCES " + MedicamentoContract.MedicamentoEntry.TABLE_NAME + "(" + MedicamentoContract.MedicamentoEntry.IDMEDICAMENTO + "))";

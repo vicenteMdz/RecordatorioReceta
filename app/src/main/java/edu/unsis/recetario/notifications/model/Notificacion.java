@@ -1,7 +1,6 @@
 package edu.unsis.recetario.notifications.model;
 
 import android.content.ContentValues;
-import android.database.Cursor;
 
 import edu.unsis.recetario.notifications.dao.NotificacionContract;
 
@@ -18,6 +17,7 @@ public class Notificacion {
     y P cuando el medicamento no se ha tomado porque no ha llegado la hora*/
     private String sw_tomado;
     private String descripcionToma;
+    private String intentId;
 
 
     public int getIdNotificacion() {
@@ -64,14 +64,33 @@ public class Notificacion {
 
     public void setDescripcionToma(String descripcionToma) { this.descripcionToma = descripcionToma;}
 
-    public ContentValues getContentValues(){
+    public String getIntentId() {
+        return intentId;
+    }
+
+    public void setIntentId(String intentId) {
+        this.intentId = intentId;
+    }
+
+    @Override
+    public String toString(){
+        return "idNotificacion: " + this.idNotificacion +
+                "idMedicamento: " + this.idMedicamento +
+                "fecha: " + this.fecha +
+                "hora: " + this.hora +
+                "swTomado: " + this.sw_tomado +
+                "descripcionToma: " + this.descripcionToma +
+                "intentId: " + this.intentId;
+    }
+
+    public ContentValues getContentValues() {
         ContentValues contentValues = new ContentValues();
-        contentValues.put(NotificacionContract.NotificacionEntry.ID_MEDICAMENTO,this.idMedicamento);
+        contentValues.put(NotificacionContract.NotificacionEntry.ID_MEDICAMENTO, this.idMedicamento);
         contentValues.put(NotificacionContract.NotificacionEntry.FECHA, this.fecha);
         contentValues.put(NotificacionContract.NotificacionEntry.HORA, this.hora);
         contentValues.put(NotificacionContract.NotificacionEntry.DESCRIPCION_TOMA, this.descripcionToma);
         contentValues.put(NotificacionContract.NotificacionEntry.SW_TOMADO, this.sw_tomado);
+        contentValues.put(NotificacionContract.NotificacionEntry.INTENT_ID, this.getIntentId());
         return contentValues;
     }
-
 }
