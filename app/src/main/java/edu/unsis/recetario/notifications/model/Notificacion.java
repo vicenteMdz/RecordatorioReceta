@@ -74,8 +74,4 @@ public class Notificacion {
         return contentValues;
     }
 
-    public Notificacion rowMapper(Cursor result){
-        Notificacion notificacion = new Notificacion();
-        return notificacion;
-    }
 }

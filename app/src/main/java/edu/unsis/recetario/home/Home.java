@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -17,7 +19,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import edu.unsis.recetario.R;
-import edu.unsis.recetario.registration.Register;
 import edu.unsis.recetario.treatements.AddTreatement;
 
 public class Home extends AppCompatActivity
@@ -47,8 +48,8 @@ public class Home extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        setFragmet(new Inicio());
-        getSupportActionBar().setTitle("TRATAMIENTO");
+        setInitialFragmet();
+        getSupportActionBar().setTitle("Medicamentos para hoy");
     }
 
     @Override
@@ -90,8 +91,10 @@ public class Home extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.treatement) {
-            Intent intent = new Intent(this, AddTreatement.class);
+            Log.d("createIntent","launch intent");
+            Intent intent = new Intent(Home.this, AddTreatement.class);
             startActivity(intent);
+            Log.d("createIntent","launch intent");
         }/* else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {
@@ -102,19 +105,16 @@ public class Home extends AppCompatActivity
 
         } else if (id == R.id.nav_send) {
 
-        }
+        }*/
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);*/
+        drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-    public void setFragmet(Fragment fragment){
-        if(fragment!=null){
-            FragmentTransaction ft=getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.drawer_layout,fragment);
-            ft.commit();
-        }
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+
+    public void setInitialFragmet(){
+        FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
+        tx.replace(R.id.appBody, new Inicio());
+        tx.commit();
     }
 }

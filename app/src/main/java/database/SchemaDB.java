@@ -63,10 +63,10 @@ public class SchemaDB {
                 MedicamentoContract.MedicamentoEntry.IDTRATAMIENTO + " INTEGER NOT NULL, "+
                 MedicamentoContract.MedicamentoEntry.NOMBRE + "  TEXT NOT NULL, "+
                 MedicamentoContract.MedicamentoEntry.DESCRIPCION + "  TEXT, "+
-                MedicamentoContract.MedicamentoEntry.NUMERODOSIS + "  TEXT NOT NULL, "+
+                MedicamentoContract.MedicamentoEntry.NUMERODOSIS + "  REAL NOT NULL, "+
                 MedicamentoContract.MedicamentoEntry.TIPODOSIS + " TEXT NOT NULL, "+
-                MedicamentoContract.MedicamentoEntry.PERIODOTOMA + " TEXT NOT NULL, "+
-                MedicamentoContract.MedicamentoEntry.DURACIONTOMA + " TEXT NOT NULL, "+
+                MedicamentoContract.MedicamentoEntry.PERIODOTOMA + " NUMERIC NOT NULL, "+
+                MedicamentoContract.MedicamentoEntry.DURACIONTOMA + " NUMERIC NOT NULL, "+
                 MedicamentoContract.MedicamentoEntry.TIPODURACION + " CHAR NOT NULL, "+
                 MedicamentoContract.MedicamentoEntry.FECHAINICIO + "  TEXT NOT NULL, "+
                 MedicamentoContract.MedicamentoEntry.HORAINICIO + "  TEXT NOT NULL, "+
