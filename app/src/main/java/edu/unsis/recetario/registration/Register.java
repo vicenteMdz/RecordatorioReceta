@@ -4,13 +4,29 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
+
 
 import edu.unsis.recetario.R;
 import edu.unsis.recetario.home.Home;
+import edu.unsis.recetario.patients.dao.PatientsDAO;
+import edu.unsis.recetario.patients.dao.PatientsDAOImpl;
+import edu.unsis.recetario.patients.model.Pacientes;
 
 public class Register extends AppCompatActivity {
+
+
+    EditText nombrePaciente;
+    EditText primerApellido;
+    EditText segundoApellido;
+    EditText edad;
+    EditText peso;
+    EditText tipoSangre;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +37,13 @@ public class Register extends AppCompatActivity {
         // Sets the Toolbar to act as the ActionBar for this Activity window.
         // Make sure the toolbar exists in the activity and is not null
         setSupportActionBar(toolbar);
+        nombrePaciente=(EditText) findViewById(R.id.txtnombre);
+        primerApellido=(EditText) findViewById(R.id.txtPrimeApell);
+        segundoApellido=(EditText) findViewById(R.id.txtsegundoApll);
+        edad=(EditText) findViewById(R.id.txtEdad);
+        peso=(EditText) findViewById(R.id.txtPeso);
+        tipoSangre=(EditText) findViewById(R.id.txtTipSangre);
+
     }
 
     // Menu icons are inflated just as they were with actionbar
@@ -44,7 +67,89 @@ public class Register extends AppCompatActivity {
     }
 
     public void saveUser(){
-        Intent newAct = new Intent(getApplicationContext(), Home.class);
-        startActivity(newAct);
+        //Intent newAct = new Intent(getApplicationContext(), Home.class);
+        //startActivity(newAct);
+        validarCampos();
+    }
+
+    private void validarCampos(){
+        /**comprobar si el objeto para el usuario esta vacio o no */
+
+
+        //Bandera evidenciar algun error durante la validación de los datos
+        boolean cancel = false;
+        //Variable para contener el campo a ser enfocado
+        View focusView = null;
+
+         String nombre;
+         String primerApell;
+         String segundoApell;
+         String edd;
+         String pes;
+         String tipoSan;
+
+         nombre=nombrePaciente.getText().toString();
+         primerApell=primerApellido.getText().toString();
+         segundoApell=segundoApellido.getText().toString();
+        edd=edad.getText().toString();
+         pes=peso.getText().toString();
+         tipoSan=tipoSangre.getText().toString();
+
+        if (TextUtils.isEmpty(nombre)) {
+            nombrePaciente.setError(getString(R.string.error_field_required));
+            focusView = nombrePaciente;
+            cancel = true;
+        }if (TextUtils.isEmpty(primerApell)) {
+            primerApellido.setError(getString(R.string.error_field_required));
+            focusView = primerApellido;
+            cancel = true;
+        }if (TextUtils.isEmpty(segundoApell)){
+            segundoApellido.setError(getString(R.string.error_field_required));
+            focusView = segundoApellido;
+            cancel = true;
+        }if (TextUtils.isEmpty(edd)){
+            edad.setError(getString(R.string.error_field_required));
+            focusView = edad;
+            cancel = true;
+        }if (TextUtils.isEmpty(pes)){
+            peso.setError(getString(R.string.error_field_required));
+            focusView = peso;
+            cancel = true;
+        }if (TextUtils.isEmpty(tipoSan)){
+            tipoSangre.setError(getString(R.string.error_field_required));
+            focusView = tipoSangre;
+            cancel = true;
+        }
+
+        if (cancel) {
+            //Enfocar el Campo del Error
+            focusView.requestFocus();
+        } else {
+            Pacientes patient=new Pacientes();
+            patient.setNombre(nombre);
+            patient.setPrimerApellido(primerApell);
+            patient.setSegundoApellido(segundoApell);
+            patient.setEdad(edd);
+            patient.setPeso(pes);
+            patient.setTipoSangre(tipoSan);
+
+            PatientsDAOImpl patientDAO=new PatientsDAOImpl(this);
+            try {
+                patientDAO.insertPaciente(patient);
+            } catch (Exception e) {
+                Log.d(e.getLocalizedMessage(),"");
+            }
+
+
+           try {
+                patientDAO.getPacienteById(1);
+                Log.d("paciente",patientDAO.getPacienteById(1).toString());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            //Intent newAct = new Intent(getApplicationContext(), Home.class);
+            //startActivity(newAct);
+
+        }
     }
 }

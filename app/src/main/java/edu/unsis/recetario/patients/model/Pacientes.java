@@ -1,5 +1,10 @@
 package edu.unsis.recetario.patients.model;
 
+import android.content.ContentValues;
+
+import edu.unsis.recetario.accounts.dao.CuentaContract;
+import edu.unsis.recetario.patients.dao.PacientesContract;
+
 /**
  * Created by Meltsan on 25/11/17.
  */
@@ -73,5 +78,24 @@ public class Pacientes {
                 "edad: " + this.edad +
                 "peso: " + this.peso +
                 "tipoSangre: " + this.tipoSangre;
+    }
+
+    public static final String ID_PACIENTE = "id_paciente";
+    public static final String NOMBRE_PACIENTE = "nombre_paciente";
+    public static final String PRIMER_APELLIDO = "primer_apellido";
+    public static final String SEGUNDO_APELLIDO = "segundo_apellido";
+    public static final String EDAD = "edad";
+    public static final String PESO = "peso";
+    public static final String TIPOSANGRE = "tipo_sangre";
+
+    public ContentValues getContentValues(){
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(PacientesContract.PacientesEntry.NOMBRE_PACIENTE,this.nombrePaciente);
+        contentValues.put(PacientesContract.PacientesEntry.PRIMER_APELLIDO,this.primerApellido);
+        contentValues.put(PacientesContract.PacientesEntry.SEGUNDO_APELLIDO,this.segundoApellido);
+        contentValues.put(PacientesContract.PacientesEntry.EDAD,this.edad);
+        contentValues.put(PacientesContract.PacientesEntry.PESO,this.peso);
+        contentValues.put(PacientesContract.PacientesEntry.TIPOSANGRE,this.tipoSangre);
+        return contentValues;
     }
 }

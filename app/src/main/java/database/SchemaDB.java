@@ -1,5 +1,7 @@
 package database;
 
+import android.util.Log;
+
 import edu.unsis.recetario.accounts.dao.CuentaContract;
 import edu.unsis.recetario.medicines.dao.MedicamentoContract;
 import edu.unsis.recetario.notifications.dao.NotificacionContract;
@@ -16,18 +18,20 @@ public class SchemaDB {
 
         //sentencia sql para crear la tabla pacientes
         qryCreateTablePacientes = "CREATE TABLE " + PacientesContract.PacientesEntry.TABLE_NAME + " (" +
-                    PacientesContract.PacientesEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "+
-                    PacientesContract.PacientesEntry.ID_PACIENTE + " INTEGER NOT NULL AUTOINCREMENT, "+
+                   //PacientesContract.PacientesEntry._ID + " INTEGER NOT NULL PRIMARY KEY, "+
+                  PacientesContract.PacientesEntry.ID_PACIENTE + " INTEGER NOT NULL PRIMARY KEY, "+
                     PacientesContract.PacientesEntry.NOMBRE_PACIENTE + " TEXT NOT NULL, "+
                     PacientesContract.PacientesEntry.PRIMER_APELLIDO + "  TEXT NOT NULL, "+
                     PacientesContract.PacientesEntry.SEGUNDO_APELLIDO + "  TEXT NOT NULL, "+
                     PacientesContract.PacientesEntry.EDAD + "  INTEGER, "+
                     PacientesContract.PacientesEntry.PESO + " INTEGER, "+
                     PacientesContract.PacientesEntry.TIPOSANGRE + " TEXT, "+
-                    "UNIQUE (" + PacientesContract.PacientesEntry.ID_PACIENTE + "))";
-
+                    "UNIQUE (" + PacientesContract.PacientesEntry.ID_PACIENTE + "));";
         return qryCreateTablePacientes;
     }
+
+
+
 
     public static String getQryCreateTableTratamientos(){
         String qryCreateTablePacientes = "";
