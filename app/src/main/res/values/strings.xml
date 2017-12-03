@@ -6,4 +6,38 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="error_field_required">Este campo es requerido</string>
     <string name="action_settings">Settings</string>
+
+    <string-array name="personas">
+        <item>Rolando</item>
+        <item>Vicente</item>
+        <item>Octavio</item>
+        <item>Maribel</item>
+        <item>Monica</item>
+        <item>Mirna</item>
+        <item>Jose</item>
+    </string-array>
+    <string-array name="tiempo">
+        <item>Minutos</item>
+        <item>Horas</item>
+        <item>Días</item>
+        <item>Meses</item>
+    </string-array>
+    <string-array name="duracion">
+        <item>Dias</item>
+        <item>Meses</item>
+        <item>Semanas</item>
+        <item>Años</item>
+    </string-array>
+    <string-array name="dosis">
+        <item>Capsulas</item>
+        <item>Pastillas</item>
+        <item>Tabletas</item>
+        <item>ml</item>
+    </string-array>
+    <string name="title_activity_add_medicines">add_medicines</string>
+
+
+    <string name="hello_world">Hello world!</string>
+
+
 </resources>
