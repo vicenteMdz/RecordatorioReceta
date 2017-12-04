@@ -102,6 +102,49 @@ public class AccountsDAOImpl extends AccountsDAO {
         }
     }
 
+    public int getAccountAdmin() throws Exception{
+        String qryGetAccounts = "SELECT " +
+                CuentaContract.CuentaEntry.ID_PACIENTE+ " "+
+                "FROM " + CuentaContract.CuentaEntry.TABLE_NAME + " " +
+                "WHERE " +CuentaContract.CuentaEntry.ID_PACIENTE_PROPIETARIO+ " = null";
+        Log.d("query", qryGetAccounts);
+        try {
+            openRead();
+
+
+            Cursor cursor = database.rawQuery(qryGetAccounts, null);
+            if(cursor.moveToNext()){
+                int idPaciente = cursor.getInt(0);
+                database.close();
+                return idPaciente;
+            }else{
+                database.close();
+                return -1;
+            }
+        }catch (Exception e){
+            Log.d("ExceptionInsert", e.getCause().getMessage());
+            throw new Exception();
+        }
+    }
+
+    /**
+     * Validamos si ya existe un usuario dado de alta en el sistema, para decidir que activity mostrar
+     * @return > 0 si hay hay un usuario administrador en la tabla, 0 si no lo hay
+     */
+    public int validateUserInserted(){
+        int r = -1;
+        String qryGetLastRowInserted;
+        qryGetLastRowInserted = "SELECT " +
+                CuentaContract.CuentaEntry.ID_CUENTA + " " +
+                " FROM " + CuentaContract.CuentaEntry.TABLE_NAME +
+                " where " + CuentaContract.CuentaEntry.ID_PACIENTE_PROPIETARIO + " = null";
+        openRead();
+        Cursor cursor = database.rawQuery(qryGetLastRowInserted, null);
+        r = cursor.getCount();
+        database.close();
+        return r;
+    }
+
     public long getRowId() {
         return rowId;
     }

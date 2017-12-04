@@ -4,8 +4,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 
-import edu.unsis.recetario.accounts.dao.CuentaContract;
-import edu.unsis.recetario.accounts.model.Cuenta;
 import edu.unsis.recetario.patients.model.Pacientes;
 
 /**
@@ -102,8 +100,6 @@ public class PatientsDAOImpl extends PatientsDAO {
             throw new Exception();
         }
     }
-
-
 
     public long getRowId() {
         return rowId;

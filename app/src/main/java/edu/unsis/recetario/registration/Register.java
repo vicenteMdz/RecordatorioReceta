@@ -150,7 +150,6 @@ public class Register extends AppCompatActivity {
             cuenta.setEmail(" ");
             cuenta.setIdPaciente(1);
             cuenta.setTipoCuenta("T");
-            cuenta.setIdPacientePropietario(1);
             cuenta.setSwActivo(" ");
             cuenta.setFechaAlta(date);
             cuenta.setFechaAltaPremium("");
