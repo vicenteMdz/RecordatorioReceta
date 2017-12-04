@@ -1,15 +1,22 @@
 package edu.unsis.recetario.medicines;
 
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import edu.unsis.recetario.R;
+import edu.unsis.recetario.home.Home;
+import edu.unsis.recetario.treatements.AddTreatement;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
+import android.support.v7.widget.Toolbar;
 import android.text.InputType;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -41,20 +48,51 @@ public class add_medicines extends AppCompatActivity implements OnClickListener 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_medicines);
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.headerActivityAddMedicines);
+        // Sets the Toolbar to act as the ActionBar for this Activity window.
+        // Make sure the toolbar exists in the activity and is not null
+
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Añadir Medicamento");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.window_close);
+
         //Get widgets reference from XML layout
         duracionToma = (EditText) findViewById(R.id.edtduracionToma);
         textViewDuracion = (TextView) findViewById(R.id.textVliew18);
         spinnerDuracion  = (Spinner) findViewById(R.id.spinneer3);
         sButton = (Switch) findViewById(R.id.switch1);
         sButton.setOnClickListener(this);
-         AddMedicines = (Button) findViewById(R.id.btnAddMedicines);
-        AddMedicines.setOnClickListener(this);
         dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
         txtTime = (EditText) findViewById(R.id.editText12);
         txtTime.setOnClickListener(this);
         findViewsById();
         setDateTimeField();
 
+    }
+
+    // Menu icons are inflated just as they were with actionbar
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_add_medicines, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.saveMedicine:
+                //saveMedicine();
+                return true;
+            case android.R.id.home:
+                Intent intent = new Intent(add_medicines.this, AddTreatement.class);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private void findViewsById() {

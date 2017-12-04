@@ -67,7 +67,7 @@ public class Home extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        //setInitialFragmet();
+        setInitialFragmet();
         getSupportActionBar().setTitle("Medicamentos para hoy");
     }
 
@@ -107,24 +107,19 @@ public class Home extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.treatement) {
-            Log.d("createIntent","launch intent");
-            Intent intent = new Intent(Home.this, AddTreatement.class);
-            startActivity(intent);
-            Log.d("createIntent","launch intent");
-        }/* else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        }*/
+        switch (item.getItemId()){
+            case R.id.treatement:
+                Log.d("createIntent","launch intent");
+                Intent intent = new Intent(Home.this, AddTreatement.class);
+                startActivity(intent);
+                Log.d("createIntent","launch intent");
+                break;
+            case R.id.today:
+                FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
+                tx.replace(R.id.appBody, new Inicio());
+                tx.commit();
+                break;
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
