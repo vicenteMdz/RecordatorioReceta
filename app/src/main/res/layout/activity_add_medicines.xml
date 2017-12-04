@@ -62,15 +62,15 @@
                         android:textColor="@color/colorPrimary" />
 
                     <EditText
+                        android:id="@+id/EdtnomMedicamento"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Nombre del medicamento"
-                        android:id="@+id/edimtText7"
                         android:lines="1"
                         android:maxLines="1" />
 
                     <EditText
-                        android:id="@+id/editmText8"
+                        android:id="@+id/edtDescripcion"
                         android:layout_width="match_parent"
                         android:layout_height="59dp"
                         android:ems="10"
@@ -87,7 +87,7 @@
             <android.support.v7.widget.CardView
                 xmlns:card_view="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="120dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
                 android:layout_marginLeft="10dp"
@@ -117,26 +117,25 @@
                         android:textColor="@color/colorPrimary" />
 
                     <LinearLayout
-                        android:layout_width="308dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:weightSum="1"
-                        android:layout_weight="0.25">
+                        android:layout_weight="0.20">
 
 
-                        <TextView
-                            android:id="@+id/tetVyiew7"
-                            android:layout_width="18dp"
+                        <EditText
+                            android:id="@+id/edTNumDosis"
+                            android:layout_width="96dp"
                             android:layout_height="wrap_content"
-                            android:text="Dosis"
-                            android:layout_weight="0.26" />
+                            android:ems="10"
+                            android:inputType="numberDecimal" />
 
                         <Spinner
-                            android:id="@+id/spinunr4"
-                            android:layout_width="88dp"
+                            android:id="@+id/spDosis"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:entries="@array/dosis"
-                            android:layout_weight="0.25" />
+                            android:entries="@array/dosis" />
 
                     </LinearLayout>
 
@@ -192,15 +191,14 @@
                             tools:ignore="HardcodedText,InefficientWeight" />
 
                         <EditText
-                            android:id="@+id/editTfext15"
+                            android:id="@+id/edtNumTomas"
                             android:layout_width="61dp"
-                            android:layout_height="35dp"
-                            android:layout_weight="0.40"
+                            android:layout_height="wrap_content"
                             android:ems="10"
                             android:inputType="number" />
 
                         <Spinner
-                            android:id="@+id/spginner2"
+                            android:id="@+id/spTomas"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.17"
@@ -214,6 +212,13 @@
                         android:orientation="horizontal"
                         android:weightSum="1">
 
+                        <Switch
+                            android:id="@+id/swDuracion"
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.41"
+                            android:text="Continuo" />
+
                         <TextView
                             android:id="@+id/textVliew18"
                             android:layout_width="wrap_content"
@@ -222,24 +227,17 @@
                             tools:ignore="InefficientWeight" />
 
                         <EditText
-                            android:id="@+id/edtduracionToma"
+                            android:id="@+id/edtNumDuracion"
                             android:layout_width="44dp"
                             android:layout_height="wrap_content"
                             android:ems="10"
                             android:inputType="number" />
 
                         <Spinner
-                            android:id="@+id/spinneer3"
-                            android:layout_width="wrap_content"
+                            android:id="@+id/spDuracion"
+                            android:layout_width="111dp"
                             android:layout_height="40dp"
                             android:entries="@array/duracion" />
-
-                        <Switch
-                            android:id="@+id/switch1"
-                            android:layout_width="100dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="0.41"
-                            android:text="Continuo" />
 
                     </LinearLayout>
 
@@ -258,7 +256,7 @@
                             android:weightSum="1">
 
                             <EditText
-                                android:id="@+id/editText9"
+                                android:id="@+id/edtFecha"
                                 android:layout_width="189dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="0.11"
@@ -268,7 +266,7 @@
                                 android:inputType="number" />
 
                             <EditText
-                                android:id="@+id/editText12"
+                                android:id="@+id/edtHora"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:editable="true"
