@@ -4,6 +4,10 @@
     <group android:id="@+id/app"
         android:checkableBehavior="single">
         <item
+            android:id="@+id/today"
+            android:icon="@drawable/calendar_clock"
+            android:title="Hoy" ></item>
+        <item
             android:id="@+id/treatement"
             android:icon="@drawable/book_multiple_variant"
             android:title="Tratamientos" ></item>

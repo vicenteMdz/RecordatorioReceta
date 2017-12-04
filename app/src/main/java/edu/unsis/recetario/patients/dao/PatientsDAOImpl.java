@@ -4,8 +4,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 
-import edu.unsis.recetario.accounts.dao.CuentaContract;
-import edu.unsis.recetario.accounts.model.Cuenta;
 import edu.unsis.recetario.patients.model.Pacientes;
 
 /**
@@ -103,7 +101,31 @@ public class PatientsDAOImpl extends PatientsDAO {
         }
     }
 
+    public Pacientes getLastId() throws Exception{
+        String qryGetPaciente = "SELECT MAX("+PacientesContract.PacientesEntry.ID_PACIENTE+")" +
 
+                "FROM " + PacientesContract.PacientesEntry.TABLE_NAME + " "; //+
+                //"WHERE " +PacientesContract.PacientesEntry.ID_PACIENTE+ " = " +
+                //idPaciente+ ";";
+        try {
+            openRead();
+
+
+            Cursor cursor = database.rawQuery(qryGetPaciente, null);
+            if(cursor.moveToNext()){
+                Pacientes pacientes=new Pacientes();
+                pacientes.setIdPaciente(cursor.getInt(0));
+                database.close();
+                return pacientes;
+            }else{
+                database.close();
+                return null;
+            }
+        }catch (Exception e){
+            Log.d("ExceptionInsert", e.getCause().getMessage());
+            throw new Exception();
+        }
+    }
 
     public long getRowId() {
         return rowId;

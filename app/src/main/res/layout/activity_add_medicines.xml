@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="edu.unsis.recetario.medicines.add_medicines">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/headerActivityAddTreatement"
+        android:id="@+id/headerActivityAddMedicines"
         android:minHeight="?attr/actionBarSize"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:title="Añadir Medicamento"
         android:theme="@style/AppTheme.ToolbarStyle">
     </android.support.v7.widget.Toolbar>
 
@@ -19,7 +17,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/scrollnView"
-        android:layout_below="@+id/headerActivityAddTreatement"
+        android:layout_below="@+id/headerActivityAddMedicines"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
@@ -131,7 +129,7 @@
                             android:layout_width="96dp"
                             android:layout_height="wrap_content"
                             android:ems="10"
-                            android:inputType="number" />
+                            android:inputType="numberDecimal" />
 
                         <Spinner
                             android:id="@+id/spDosis"
@@ -282,13 +280,6 @@
                     </LinearLayout>
                 </LinearLayout>
             </android.support.v7.widget.CardView>
-
-            <Button
-                android:id="@+id/btnAddMedicines"
-                android:layout_width="138dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:text="Aceptar" />
 
         </LinearLayout>
     </ScrollView>

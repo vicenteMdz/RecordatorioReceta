@@ -18,16 +18,24 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import edu.unsis.recetario.R;
+import edu.unsis.recetario.accounts.dao.AccountsDAOImpl;
 import edu.unsis.recetario.medicines.model.Medicamento;
 import edu.unsis.recetario.notifications.alarms.receive.AlarmReceiver;
 import edu.unsis.recetario.notifications.alarms.schedule.SchedulingAlarm;
 import edu.unsis.recetario.notifications.model.Notificacion;
+import edu.unsis.recetario.patients.dao.PatientsDAOImpl;
+import edu.unsis.recetario.patients.model.Pacientes;
 import edu.unsis.recetario.treatements.AddTreatement;
 
 public class Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    AccountsDAOImpl accountscuentaDAO=new AccountsDAOImpl(this);
+    PatientsDAOImpl pacientesDAO = new PatientsDAOImpl(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,13 +43,33 @@ public class Home extends AppCompatActivity
         setContentView(R.layout.activity_home);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Medicamentos para hoy");
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+        //cargamos los datos del usuario,
+        try{
+            //primero obtenemos el id del paciente de la tabla cuentas
+            int idPaciente = accountscuentaDAO.getAccountAdmin();
+            Pacientes paciente = pacientesDAO.getPacienteById(idPaciente);
+            TextView userName = (TextView) findViewById(R.id.userName);
+            userName.setText(paciente.getNombre() + " " + paciente.getPrimerApellido() +
+                " " + paciente.getSegundoApellido());
+        }catch(Exception e){
+            Toast.makeText(this, "Error al cargar datos del usario", Toast.LENGTH_SHORT);
+        }
+        //Cargamos el fragmento Inicial, Menú item Hoy.
+        setInitialFragmet();
+
+        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();*/
                 Intent alarmIntent = new Intent(Home.this, AlarmReceiver.class);
                 //agregar un id al intent para despues con ese id eliminar la notificacion
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(Home.this, 0, alarmIntent, 0);
@@ -57,18 +85,9 @@ public class Home extends AppCompatActivity
                     Log.d("error", e.getCause().getMessage());
                 }
             }
-        });
+        });*/
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-        //setInitialFragmet();
-        getSupportActionBar().setTitle("Medicamentos para hoy");
     }
 
     @Override
@@ -107,24 +126,19 @@ public class Home extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.treatement) {
-            Log.d("createIntent","launch intent");
-            Intent intent = new Intent(Home.this, AddTreatement.class);
-            startActivity(intent);
-            Log.d("createIntent","launch intent");
-        }/* else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        }*/
+        switch (item.getItemId()){
+            case R.id.treatement:
+                Log.d("createIntent","launch intent");
+                Intent intent = new Intent(Home.this, AddTreatement.class);
+                startActivity(intent);
+                Log.d("createIntent","launch intent");
+                break;
+            case R.id.today:
+                FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
+                tx.replace(R.id.appBody, new Inicio());
+                tx.commit();
+                break;
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

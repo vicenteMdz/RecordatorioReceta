@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="edu.unsis.recetario.treatements.AddTreatement">
 
     <android.support.v7.widget.Toolbar
@@ -11,7 +10,6 @@
         android:minHeight="?attr/actionBarSize"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:title="Añadir Tratamiento"
         android:theme="@style/AppTheme.ToolbarStyle">
     </android.support.v7.widget.Toolbar>
 
@@ -123,8 +121,11 @@
                         android:layout_width="103dp"
                         android:layout_height="match_parent"
                         android:text="Añadir"
-                        android:id="@+id/button"
-                        android:layout_gravity="right" />
+                        android:textSize="18dp"
+                        android:textColor="@color/colorPrimary"
+                        android:id="@+id/addMedicine"
+                        android:layout_gravity="right"
+                        android:background="#00ffffff" />
 
 
                 </LinearLayout>

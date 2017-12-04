@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import edu.unsis.recetario.MainActivity;
+import edu.unsis.recetario.accounts.dao.AccountsDAOImpl;
+import edu.unsis.recetario.home.Home;
 import edu.unsis.recetario.registration.Register;
 
 /**
@@ -18,8 +20,15 @@ public class Splash extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         //registramos el siguiente activity a mostrar
         //validamos si ya fue usado por primera vez en la base de datos para mostrar el siguiente activity
-        Intent intent = new Intent(this, Register.class);
-        startActivity(intent);
+        AccountsDAOImpl accountscuentaDAO=new AccountsDAOImpl(this);
+        int checkUserExist = accountscuentaDAO.validateUserInserted();
+        if(checkUserExist > 0){ //si ya hay un usario ir directo al home
+            Intent intent = new Intent(this, Home.class);
+            startActivity(intent);
+        }else{
+            Intent intent = new Intent(this, Register.class);
+            startActivity(intent);
+        }
         finish();
     }
 }

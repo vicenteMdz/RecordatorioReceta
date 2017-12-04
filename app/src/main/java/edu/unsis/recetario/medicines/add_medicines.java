@@ -1,10 +1,13 @@
 package edu.unsis.recetario.medicines;
 
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import edu.unsis.recetario.R;
 import edu.unsis.recetario.medicines.model.Medicamento;
+import edu.unsis.recetario.home.Home;
+import edu.unsis.recetario.treatements.AddTreatement;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -12,8 +15,11 @@ import java.util.Calendar;
 import java.util.Locale;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
+import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -45,14 +51,21 @@ public class add_medicines extends AppCompatActivity implements OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_medicines);
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.headerActivityAddMedicines);
+        // Sets the Toolbar to act as the ActionBar for this Activity window.
+        // Make sure the toolbar exists in the activity and is not null
+
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Añadir Medicamento");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.window_close);
+
         //Get widgets reference from XML layout
         txtduracionToma = (EditText) findViewById(R.id.edtNumDuracion);
         textViewDuracion = (TextView) findViewById(R.id.textVliew18);
         spinnerDuracion  = (Spinner) findViewById(R.id.spDuracion);
         sButton = (Switch) findViewById(R.id.swDuracion);
         sButton.setOnClickListener(this);
-         AddMedicines = (Button) findViewById(R.id.btnAddMedicines);
-        AddMedicines.setOnClickListener(this);
         dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
         txtTime = (EditText) findViewById(R.id.edtHora);
         txtTime.setOnClickListener(this);
@@ -61,6 +74,30 @@ public class add_medicines extends AppCompatActivity implements OnClickListener{
         findViewsById();
         setDateTimeField();
 
+    }
+
+    // Menu icons are inflated just as they were with actionbar
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_add_medicines, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.saveMedicine:
+                saveMedicine();
+                return true;
+            case android.R.id.home:
+                Intent intent = new Intent(add_medicines.this, AddTreatement.class);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private void findViewsById()  {
@@ -83,8 +120,8 @@ public class add_medicines extends AppCompatActivity implements OnClickListener{
 
 
     }
-private void guardarMedicina(){
-    txtduracionToma.setText("Continuo");
+private void saveMedicine(){
+
     EditText Nombre;
     EditText Descripcion;
     EditText NumDosis;
@@ -164,16 +201,17 @@ private void guardarMedicina(){
     }
     if (cancel) {
         //Enfocar el Campo del Error
-        focusView = Nombre;
+
         focusView.requestFocus();
 
     } else {
+
 
         Medicamento medicamento=new Medicamento();
 
         medicamento.setNombre(Nombre.getText().toString());
         medicamento.setDescripcion(Descripcion.getText().toString());
-        medicamento.setNumeroDosis(Integer.parseInt(NumDosis.getText().toString()));
+        medicamento.setNumeroDosis(Float.parseFloat(NumDosis.getText().toString()));
         medicamento.setTipoDosis(Dosis.getSelectedItem().toString());
         medicamento.setPeriodoToma(Integer.parseInt(numToma.getText().toString()));
         medicamento.setTipoPeriodoToma(Toma.getSelectedItem().toString());
@@ -188,7 +226,7 @@ private void guardarMedicina(){
 
         ArrayList<Medicamento> medicamentos = new ArrayList<Medicamento>();
         medicamentos.add(medicamento);
-
+        txtduracionToma.setText("Continuo");
     }
 
 }
