@@ -30,6 +30,7 @@ import edu.unsis.recetario.notifications.model.Notificacion;
 import edu.unsis.recetario.patients.dao.PatientsDAOImpl;
 import edu.unsis.recetario.patients.model.Pacientes;
 import edu.unsis.recetario.treatements.AddTreatement;
+import session.SessionObject;
 
 public class Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -52,19 +53,24 @@ public class Home extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        //Cargamos el fragmento Inicial, Menú item Hoy.
+        setInitialFragmet();
         //cargamos los datos del usuario,
         try{
             //primero obtenemos el id del paciente de la tabla cuentas
             int idPaciente = accountscuentaDAO.getAccountAdmin();
+            SessionObject sessionObject = SessionObject.getInstance();
             Pacientes paciente = pacientesDAO.getPacienteById(idPaciente);
-            TextView userName = (TextView) findViewById(R.id.userName);
-            userName.setText(paciente.getNombre() + " " + paciente.getPrimerApellido() +
-                " " + paciente.getSegundoApellido());
+            sessionObject.setCurrentPacient(paciente);
+            Log.d("user:: ", paciente.toString());
+            TextView userName = (TextView) findViewById(R.id.userNamexxx);
+            String nom= paciente.getNombre() + " " + paciente.getPrimerApellido() +
+                    " " + paciente.getSegundoApellido();
+            userName.setText(nom);
         }catch(Exception e){
             Toast.makeText(this, "Error al cargar datos del usario", Toast.LENGTH_SHORT);
         }
-        //Cargamos el fragmento Inicial, Menú item Hoy.
-        setInitialFragmet();
+
 
         /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
