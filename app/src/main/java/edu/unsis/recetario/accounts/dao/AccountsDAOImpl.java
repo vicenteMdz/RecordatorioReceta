@@ -72,7 +72,7 @@ public class AccountsDAOImpl extends AccountsDAO {
                 CuentaContract.CuentaEntry.FECHA_ALTA+ ","+
                 CuentaContract.CuentaEntry.FECHA_ALTA_PREMIUM+ " "+
                 "FROM " + CuentaContract.CuentaEntry.TABLE_NAME + " " +
-                "WHERE " +CuentaContract.CuentaEntry.ID_CUENTA+ " = " +
+                "WHERE " +CuentaContract.CuentaEntry.ID_PACIENTE+ " = " +
                 idAccounts;
         Log.d("query", qryGetAccounts);
         try {

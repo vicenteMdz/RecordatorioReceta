@@ -138,6 +138,9 @@ public class Register extends AppCompatActivity {
             String date = diaN.format(dNow.getTime());
 
             Pacientes patient=new Pacientes();
+            PatientsDAOImpl patientDAO=new PatientsDAOImpl(this);
+            AccountsDAOImpl accountscuentaDAO=new AccountsDAOImpl(this);
+
             Cuenta cuenta=new Cuenta();
             patient.setNombre(nombre);
             patient.setPrimerApellido(primerApell);
@@ -146,18 +149,26 @@ public class Register extends AppCompatActivity {
             patient.setPeso(pes);
             patient.setTipoSangre(tipoSan);
 
+            try {
+                patientDAO.insertPaciente(patient);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             //Dar de alta la cuenta
             cuenta.setEmail(" ");
-            cuenta.setIdPaciente(1);
+            try {
+                cuenta.setIdPaciente(patientDAO.getLastId().toString2());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             cuenta.setTipoCuenta("T");
             cuenta.setSwActivo(" ");
             cuenta.setFechaAlta(date);
             cuenta.setFechaAltaPremium("");
 
-            PatientsDAOImpl patientDAO=new PatientsDAOImpl(this);
-            AccountsDAOImpl accountscuentaDAO=new AccountsDAOImpl(this);
+
             try {
-                patientDAO.insertPaciente(patient);
+
                 accountscuentaDAO.insertAccounts(cuenta);
             } catch (Exception e) {
                 Log.d(e.getLocalizedMessage(),"");
@@ -165,10 +176,13 @@ public class Register extends AppCompatActivity {
 
 
            try {
-                patientDAO.getPacienteById(1);
-               accountscuentaDAO.getAccountsById(1);
-                //Log.d("paciente",patientDAO.getPacienteById(1).toString());
-               Log.d("Cuenta",accountscuentaDAO.getAccountsById(1).toString());
+               //patientDAO.getPacienteById(patientDAO.getLastId().toString2());
+               //accountscuentaDAO.getAccountsById(1);
+               Log.d("paciente",patientDAO.getPacienteById(patientDAO.getLastId().toString2()).toString());
+
+               Log.d("Ultimopaas", String.valueOf(patientDAO.getLastId().toString2()));
+               Log.d("Cuenta", String.valueOf(accountscuentaDAO.getAccountsById(patientDAO.getLastId().toString2())));
+
             } catch (Exception e) {
                 e.printStackTrace();
             }

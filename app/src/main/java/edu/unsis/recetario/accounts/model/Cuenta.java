@@ -101,6 +101,17 @@ public class Cuenta {
         return contentValues;
     }
 
-
-
+    @Override
+    public String toString() {
+        return "Cuenta{" +
+                "idCuenta='" + idCuenta + '\'' +
+                ", email='" + email + '\'' +
+                ", idPaciente=" + idPaciente +
+                ", tipoCuenta='" + tipoCuenta + '\'' +
+                ", idPacientePropietario=" + idPacientePropietario +
+                ", swActivo='" + swActivo + '\'' +
+                ", fechaAlta='" + fechaAlta + '\'' +
+                ", fechaAltaPremium='" + fechaAltaPremium + '\'' +
+                '}';
+    }
 }

@@ -34,12 +34,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>-->
         </activity>
-        <activity android:name=".registration.Register" />
-        <activity
-            android:name=".home.Home"
-            android:label="@string/title_activity_home"
-            android:theme="@style/AppTheme" />
-        <activity android:name=".treatements.AddTreatement"></activity>
         <receiver android:name=".notifications.alarms.receive.AlarmReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
