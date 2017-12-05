@@ -26,6 +26,8 @@ import edu.unsis.recetario.patients.model.Pacientes;
 
 public class Register extends AppCompatActivity {
 
+    PatientsDAOImpl patientDAO=new PatientsDAOImpl(this);
+    AccountsDAOImpl accountscuentaDAO=new AccountsDAOImpl(this);
 
     EditText nombrePaciente;
     EditText primerApellido;
@@ -138,10 +140,7 @@ public class Register extends AppCompatActivity {
             String date = diaN.format(dNow.getTime());
 
             Pacientes patient=new Pacientes();
-            PatientsDAOImpl patientDAO=new PatientsDAOImpl(this);
-            AccountsDAOImpl accountscuentaDAO=new AccountsDAOImpl(this);
 
-            Cuenta cuenta=new Cuenta();
             patient.setNombre(nombre);
             patient.setPrimerApellido(primerApell);
             patient.setSegundoApellido(segundoApell);
@@ -155,41 +154,23 @@ public class Register extends AppCompatActivity {
                 e.printStackTrace();
             }
             //Dar de alta la cuenta
-            cuenta.setEmail(" ");
+            Cuenta cuenta=new Cuenta();
+            cuenta.setEmail("");
             try {
-                cuenta.setIdPaciente(patientDAO.getLastId().toString2());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            cuenta.setTipoCuenta("T");
-            cuenta.setIdPacientePropietario(1);
-            cuenta.setSwActivo(" ");
-            cuenta.setFechaAlta(date);
-            cuenta.setFechaAltaPremium("");
-
-
-            try {
-
+                cuenta.setIdPaciente(patientDAO.getIdPacienteInsertado());
+                cuenta.setTipoCuenta("T");
+                cuenta.setSwActivo("A");
+                cuenta.setFechaAlta(date);
+                cuenta.setIdPacientePropietario(-1);
+                Log.d("newAccount", cuenta.toString());
                 accountscuentaDAO.insertAccounts(cuenta);
-            } catch (Exception e) {
-                Log.d(e.getLocalizedMessage(),"");
-            }
-
-
-           try {
-               //patientDAO.getPacienteById(patientDAO.getLastId().toString2());
-               //accountscuentaDAO.getAccountsById(1);
-               Log.d("paciente",patientDAO.getPacienteById(patientDAO.getLastId().toString2()).toString());
-
-               Log.d("Ultimopaas", String.valueOf(patientDAO.getLastId().toString2()));
-               Log.d("Cuenta", String.valueOf(accountscuentaDAO.getAccountsById(patientDAO.getLastId().toString2())));
-
+                cuenta.setFechaAltaPremium("");
             } catch (Exception e) {
                 e.printStackTrace();
             }
-           // Intent newAct = new Intent(getApplicationContext(), Home.class);
-            //startActivity(newAct);
 
+            Intent newAct = new Intent(getApplicationContext(), Home.class);
+            startActivity(newAct);
         }
     }
 }

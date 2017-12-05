@@ -17,5 +17,6 @@ public class NotificacionContract {
         public static final String HORA = "hora";
         public static final String SW_TOMADO = "sw_tomado";
         public static final String DESCRIPCION_TOMA = "descripcion_toma";
+        public static final String INTENT_ID = "intent_id";
     }
 }

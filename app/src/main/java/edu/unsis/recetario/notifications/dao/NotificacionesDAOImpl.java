@@ -61,13 +61,14 @@ public class NotificacionesDAOImpl extends NotificacionesDAO {
     }
 
     public Notificacion getNotificacionById(int idNotification) throws Exception{
-        String qryGetNotification = "SELECT " + NotificacionContract.NotificacionEntry.ID_NOTIFICACION + ", " +
+        String qryGetNotification = "SELECT " +
                 NotificacionContract.NotificacionEntry.ID_MEDICAMENTO +", " +
                 NotificacionContract.NotificacionEntry.FECHA +", " +
                 NotificacionContract.NotificacionEntry.HORA +", " +
                 NotificacionContract.NotificacionEntry.DESCRIPCION_TOMA +", " +
-                NotificacionContract.NotificacionEntry.ID_MEDICAMENTO +", " +
-                NotificacionContract.NotificacionEntry.ID_MEDICAMENTO +" " +
+                NotificacionContract.NotificacionEntry.ID_NOTIFICACION +", " +
+                NotificacionContract.NotificacionEntry.INTENT_ID +", " +
+                NotificacionContract.NotificacionEntry.SW_TOMADO +" " +
                 "FROM " + NotificacionContract.NotificacionEntry.TABLE_NAME + " " +
                 "WHERE " + NotificacionContract.NotificacionEntry.ID_NOTIFICACION + " = " +
                 idNotification;
@@ -77,11 +78,12 @@ public class NotificacionesDAOImpl extends NotificacionesDAO {
             Cursor cursor = database.rawQuery(qryGetNotification, null);
             if(cursor.moveToNext()){
                 Notificacion notificacion = new Notificacion();
-                notificacion.setDescripcionToma(cursor.getString(5));
-                notificacion.setFecha(cursor.getString(3));
-                notificacion.setHora(cursor.getString(4));
-                notificacion.setIdMedicamento(cursor.getInt(2));
-                notificacion.setIdNotificacion(cursor.getInt(1));
+                notificacion.setIdMedicamento(cursor.getInt(0));
+                notificacion.setFecha(cursor.getString(1));
+                notificacion.setHora(cursor.getString(2));
+                notificacion.setDescripcionToma(cursor.getString(3));
+                notificacion.setIdNotificacion(cursor.getInt(4));
+                notificacion.setIntentId(cursor.getString(5));
                 notificacion.setSw_tomado(cursor.getString(6));
                 database.close();
                 return notificacion;
@@ -97,13 +99,14 @@ public class NotificacionesDAOImpl extends NotificacionesDAO {
 
     public List<Notificacion> getAllNotificacion()  throws Exception{
         ArrayList<Notificacion> listaNotificiones = new ArrayList<Notificacion>();
-        String qryGetNotification = "SELECT " + NotificacionContract.NotificacionEntry.ID_NOTIFICACION + ", " +
+        String qryGetNotification = "SELECT " +
                 NotificacionContract.NotificacionEntry.ID_MEDICAMENTO +", " +
                 NotificacionContract.NotificacionEntry.FECHA +", " +
                 NotificacionContract.NotificacionEntry.HORA +", " +
                 NotificacionContract.NotificacionEntry.DESCRIPCION_TOMA +", " +
-                NotificacionContract.NotificacionEntry.ID_MEDICAMENTO +", " +
-                NotificacionContract.NotificacionEntry.ID_MEDICAMENTO +" " +
+                NotificacionContract.NotificacionEntry.ID_NOTIFICACION +", " +
+                NotificacionContract.NotificacionEntry.INTENT_ID +", " +
+                NotificacionContract.NotificacionEntry.SW_TOMADO +" " +
                 "FROM " + NotificacionContract.NotificacionEntry.TABLE_NAME + " ";
         Log.d("query", qryGetNotification);
         try {
@@ -111,11 +114,12 @@ public class NotificacionesDAOImpl extends NotificacionesDAO {
             Cursor cursor = database.rawQuery(qryGetNotification, null);
             while(cursor.moveToNext()){
                 Notificacion notificacion = new Notificacion();
-                notificacion.setDescripcionToma(cursor.getString(5));
-                notificacion.setFecha(cursor.getString(3));
-                notificacion.setHora(cursor.getString(4));
-                notificacion.setIdMedicamento(cursor.getInt(2));
-                notificacion.setIdNotificacion(cursor.getInt(1));
+                notificacion.setIdMedicamento(cursor.getInt(0));
+                notificacion.setFecha(cursor.getString(1));
+                notificacion.setHora(cursor.getString(2));
+                notificacion.setDescripcionToma(cursor.getString(3));
+                notificacion.setIdNotificacion(cursor.getInt(4));
+                notificacion.setIntentId(cursor.getString(5));
                 notificacion.setSw_tomado(cursor.getString(6));
                 listaNotificiones.add(notificacion);
             }
@@ -125,6 +129,20 @@ public class NotificacionesDAOImpl extends NotificacionesDAO {
             throw new Exception();
         }
         return listaNotificiones;
+    }
+
+    public int getLastRowIdInserted(){
+        int r = -1;
+        String qryGetLastRowInserted;
+        qryGetLastRowInserted = "SELECT MAX(" +
+                NotificacionContract.NotificacionEntry.ID_NOTIFICACION + ") " +
+            " FROM " + NotificacionContract.NotificacionEntry.TABLE_NAME;
+        openRead();
+        Cursor cursor = database.rawQuery(qryGetLastRowInserted, null);
+        if(cursor.moveToNext()){
+            r = cursor.getInt(0);
+        }
+        return r;
     }
 
     public long getRowId() {

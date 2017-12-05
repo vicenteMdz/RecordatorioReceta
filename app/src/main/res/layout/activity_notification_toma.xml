@@ -1,122 +1,156 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="edu.unsis.recetario.notifications.NotificationToma">
+    tools:context="edu.unsis.recetario.treatements.AddTreatement">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/headerActivityAddTreatement"
+        android:minHeight="?attr/actionBarSize"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.ToolbarStyle"
+        android:layout_alignBottom="@+id/datePicker"
+        android:layout_alignParentTop="true">
+    </android.support.v7.widget.Toolbar>
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/headerActivityAddTreatement">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:weightSum="1">
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cvTreatement"
+                android:layout_width="match_parent"
+                android:layout_height="230dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="10.20"
+                card_view:cardCornerRadius="4dp">
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginTop="1dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:id="@+id/cvMedicine"
+                android:layout_gravity="center"
+                card_view:cardCornerRadius="4dp"
+                android:layout_weight="1.23">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:text="Tomas siguientes"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/colorComplement" />
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp"
+                    android:weightSum="1">
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+    </ScrollView>
+
+    <DatePicker
+        android:id="@+id/datePicker"
+        android:layout_width="wrap_content"
+        android:layout_height="90dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 
     <LinearLayout
-        android:layout_width="378dp"
-        android:layout_height="450dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical"
+        android:padding="16dp"
         android:weightSum="1"
-        tools:layout_editor_absoluteY="20dp"
-        tools:layout_editor_absoluteX="20dp">
+        android:id="@+id/linearLayout"
+        android:layout_below="@+id/headerActivityAddTreatement"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
-        <DatePicker
-            android:id="@+id/datePicker"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            tools:layout_editor_absoluteX="56dp"
-            tools:layout_editor_absoluteY="dp"
-            android:layout_weight="0.23" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:text="Notificación"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/colorComplement" />
 
-        <EditText
-            android:paddingLeft="50px"
-            android:id="@+id/editText13"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Mirna Cecilia"
-            android:enabled="false"
-            android:textColor="#1b0371"
-            tools:ignore="RtlSymmetry" />
-        <EditText
-            android:paddingLeft="50px"
-            android:id="@+id/editText12"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Tratamiento para la infección"
-            android:enabled="false"
-            android:textColor="#070129"/>
-        <EditText
-            android:paddingLeft="50px"
-            android:id="@+id/editText11"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Kenzoflex"
-            android:enabled="false"
-            android:textColor="#070129"/>
-        <EditText
-            android:paddingLeft="50px"
-            android:id="@+id/editText10"
-            android:layout_width="400dp"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Dosis: 2 Cap"
-            android:enabled="false"
-            android:textColor="#070129"/>
-        <EditText
-            android:paddingLeft="50px"
-            android:id="@+id/editText14"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="03/11/17"
-            android:enabled="false"
-            android:textColor="#070129"/>
+        <TextView
+            android:layout_width="354dp"
+            android:layout_height="74dp"
+            android:layout_weight="0.12"
+            android:text="Te toca tomar 1 capsula de Kenzoflex."
+            android:textColor="@android:color/black"
+            android:textSize="18dp"
+            android:textStyle="italic"/>
 
-        <EditText
-            android:paddingLeft="50px"
-            android:id="@+id/editText15"
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="18:00p.m."
-            android:enabled="false"
-            android:textColor="#070129"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:orientation="horizontal"
-        tools:layout_editor_absoluteY="8dp"
-        tools:layout_editor_absoluteX="8dp">
+            android:weightSum="1">
 
+            <Button
+                android:id="@+id/btndos"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:drawableLeft="@drawable/check"
+                android:text="Tomar"
+                android:layout_marginRight="7dp"/>
+
+            <Button
+                android:id="@+id/button2"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="116dp"
+                android:layout_height="match_parent"
+                android:drawableLeft="@drawable/cancel"
+                android:text="Omitir Toma"
+                android:layout_marginRight="7dp"/>
+
+            <Button
+                android:id="@+id/button3"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:layout_marginRight="5dp"
+                android:drawableLeft="@drawable/cancel"
+                android:text="Omitir  Siguiente" />
+
+        </LinearLayout>
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btnuno"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:drawableLeft="@android:drawable/ic_delete"
-        android:text="Omitir"
-        tools:layout_editor_absoluteX="38dp"
-        tools:layout_editor_absoluteY="492dp" />
-
-    <Button
-        android:id="@+id/btndos"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:drawableLeft="@android:drawable/checkbox_on_background"
-        android:text="Tomar"
-        tools:layout_editor_absoluteX="233dp"
-        tools:layout_editor_absoluteY="493dp" />
-
-
-
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>

@@ -5,6 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 
+import java.util.ArrayList;
+
 import edu.unsis.recetario.accounts.model.Cuenta;
 import edu.unsis.recetario.notifications.dao.NotificacionContract;
 import edu.unsis.recetario.notifications.model.Notificacion;
@@ -61,6 +63,44 @@ public class AccountsDAOImpl extends AccountsDAO {
     }
 
 
+    public ArrayList<Cuenta> getAllAccounts() throws Exception{
+        ArrayList<Cuenta> cuentas = new ArrayList<Cuenta>();
+        String qryGetAccounts = "SELECT " +
+                CuentaContract.CuentaEntry.ID_CUENTA + ","+
+                CuentaContract.CuentaEntry.EMAIL + ","+
+                CuentaContract.CuentaEntry.ID_PACIENTE+ ","+
+                CuentaContract.CuentaEntry.TIPO_CUENTA + ","+
+                CuentaContract.CuentaEntry.ID_PACIENTE_PROPIETARIO + ","+
+                CuentaContract.CuentaEntry.SW_ACTIVO + ","+
+                CuentaContract.CuentaEntry.FECHA_ALTA+ ","+
+                CuentaContract.CuentaEntry.FECHA_ALTA_PREMIUM+ " "+
+                "FROM " + CuentaContract.CuentaEntry.TABLE_NAME;
+        Log.d("query", qryGetAccounts);
+        try {
+            openRead();
+
+
+            Cursor cursor = database.rawQuery(qryGetAccounts, null);
+            while(cursor.moveToNext()){
+                Cuenta cuenta=new Cuenta();
+                cuenta.setIdCuenta(cursor.getString(0));
+                cuenta.setEmail(cursor.getString(1));
+                cuenta.setIdPaciente(cursor.getInt(2));
+                cuenta.setTipoCuenta(cursor.getString(3));
+                cuenta.setIdPacientePropietario(cursor.getInt(4));
+                cuenta.setSwActivo(cursor.getString(5));
+                cuenta.setFechaAlta(cursor.getString(6));
+                cuenta.setFechaAltaPremium(cursor.getString(7));
+                cuentas.add(cuenta);
+            }
+            database.close();
+            return cuentas;
+        }catch (Exception e){
+            Log.d("ExceptionInsert", e.getCause().getMessage());
+            throw new Exception();
+        }
+    }
+
     public Cuenta getAccountsById(int idAccounts) throws Exception{
         String qryGetAccounts = "SELECT " +
                 CuentaContract.CuentaEntry.ID_CUENTA + ","+
@@ -102,7 +142,50 @@ public class AccountsDAOImpl extends AccountsDAO {
         }
     }
 
+    public int getAccountAdmin() throws Exception{
+        String qryGetAccounts = "SELECT " +
+                CuentaContract.CuentaEntry.ID_PACIENTE+ " "+
+                "FROM " + CuentaContract.CuentaEntry.TABLE_NAME + " " +
+                "WHERE " +CuentaContract.CuentaEntry.ID_PACIENTE_PROPIETARIO+ " < 0";
+        Log.d("query", qryGetAccounts);
+        try {
+            openRead();
 
+
+            Cursor cursor = database.rawQuery(qryGetAccounts, null);
+            if(cursor.moveToNext()){
+                int idPaciente = cursor.getInt(0);
+                database.close();
+                return idPaciente;
+            }else{
+                database.close();
+                return -1;
+            }
+        }catch (Exception e){
+            Log.d("ExceptionInsert", e.getCause().getMessage());
+            throw new Exception();
+        }
+    }
+
+    /**
+     * Validamos si ya existe un usuario dado de alta en el sistema, para decidir que activity mostrar
+     * @return > 0 si hay hay un usuario administrador en la tabla, 0 si no lo hay
+     */
+    public int validateUserInserted(){
+        int r = -1;
+        String qryGetLastRowInserted;
+        qryGetLastRowInserted = "SELECT " +
+                CuentaContract.CuentaEntry.ID_CUENTA + " " +
+                " FROM " + CuentaContract.CuentaEntry.TABLE_NAME +
+                " where " + CuentaContract.CuentaEntry.ID_PACIENTE_PROPIETARIO + " < 0";
+        Log.d("QueryValidateUser", qryGetLastRowInserted);
+        openRead();
+        Cursor cursor = database.rawQuery(qryGetLastRowInserted, null);
+        r = cursor.getCount();
+        Log.d("R:::", String.valueOf(r));
+        database.close();
+        return r;
+    }
 
     public long getRowId() {
         return rowId;
