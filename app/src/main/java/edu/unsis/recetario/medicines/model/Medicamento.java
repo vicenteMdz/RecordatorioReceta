@@ -139,7 +139,6 @@ public class Medicamento {
 
     public ContentValues getContentValues(){
         ContentValues contentValues = new ContentValues();
-        contentValues.put(MedicamentoContract.MedicamentoEntry.IDMEDICAMENTO,this.idMedicamento);
         contentValues.put(MedicamentoContract.MedicamentoEntry.IDTRATAMIENTO,this.idTratamiento);
         contentValues.put(MedicamentoContract.MedicamentoEntry.NOMBRE,this.nombre);
         contentValues.put(MedicamentoContract.MedicamentoEntry.DESCRIPCION,this.descripcion);

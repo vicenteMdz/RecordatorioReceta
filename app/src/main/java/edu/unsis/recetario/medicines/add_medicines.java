@@ -79,8 +79,9 @@ public class add_medicines extends AppCompatActivity implements OnClickListener{
         spinnerDuracion  = (Spinner) findViewById(R.id.spDuracion);
         sButton = (Switch) findViewById(R.id.swDuracion);
         sButton.setOnClickListener(this);
-        dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
-        txtTime = (EditText) findViewById(edtHora);
+
+        dateFormatter = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+        txtTime = (EditText) findViewById(R.id.edtHora);
         txtTime.setOnClickListener(this);
 
 
@@ -188,6 +189,7 @@ public class add_medicines extends AppCompatActivity implements OnClickListener{
         Date date = new Date();
         String fecha = dateFormat.format(date);
         fromDateEtxt.setText(fecha);
+
     }
 
     private void saveMedicine(){
@@ -292,7 +294,8 @@ public class add_medicines extends AppCompatActivity implements OnClickListener{
             medicamento.setSwActivo("A");
             medicamento.setSwFinalizado("N");
             SessionObject.getListMedicamentos().add(medicamento);
-            txtduracionToma.setText("Continuo");
+            Intent intent = new Intent(add_medicines.this, AddTreatement.class);
+            startActivity(intent);
         }
 
     }
@@ -328,7 +331,6 @@ public class add_medicines extends AppCompatActivity implements OnClickListener{
         if(sButton.isChecked()){
             //Do something when switch is on
             txtduracionToma.setVisibility(View.INVISIBLE);
-            txtduracionToma.setText("Continuo");
             textViewDuracion.setVisibility(View.INVISIBLE);
             spinnerDuracion.setVisibility(View.INVISIBLE);
 

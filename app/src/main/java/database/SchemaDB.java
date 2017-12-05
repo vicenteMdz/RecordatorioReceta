@@ -19,7 +19,7 @@ public class SchemaDB {
         //sentencia sql para crear la tabla pacientes
         qryCreateTablePacientes = "CREATE TABLE " + PacientesContract.PacientesEntry.TABLE_NAME + " (" +
                    //PacientesContract.PacientesEntry._ID + " INTEGER NOT NULL PRIMARY KEY, "+
-                  PacientesContract.PacientesEntry.ID_PACIENTE + " INTEGER NOT NULL PRIMARY KEY, "+
+                    PacientesContract.PacientesEntry.ID_PACIENTE + " INTEGER NOT NULL PRIMARY KEY, "+
                     PacientesContract.PacientesEntry.NOMBRE_PACIENTE + " TEXT NOT NULL, "+
                     PacientesContract.PacientesEntry.PRIMER_APELLIDO + "  TEXT NOT NULL, "+
                     PacientesContract.PacientesEntry.SEGUNDO_APELLIDO + "  TEXT NOT NULL, "+
@@ -58,8 +58,8 @@ public class SchemaDB {
 
         //sentencia sql para crear la tabla medicamentos
         qryCreateTableMedicamentos = "CREATE TABLE " + MedicamentoContract.MedicamentoEntry.TABLE_NAME + " (" +
-                MedicamentoContract.MedicamentoEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "+
-                MedicamentoContract.MedicamentoEntry.IDMEDICAMENTO + " INTEGER NOT NULL AUTOINCREMENT, "+
+                //MedicamentoContract.MedicamentoEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "+
+                MedicamentoContract.MedicamentoEntry.IDMEDICAMENTO + " INTEGER NOT NULL PRIMARY KEY, "+
                 MedicamentoContract.MedicamentoEntry.IDTRATAMIENTO + " INTEGER NOT NULL, "+
                 MedicamentoContract.MedicamentoEntry.NOMBRE + "  TEXT NOT NULL, "+
                 MedicamentoContract.MedicamentoEntry.DESCRIPCION + "  TEXT, "+
@@ -85,8 +85,8 @@ public class SchemaDB {
 
         //sentencia sql para crear la tabla notificaciones
         qryCreateTableNotificaciones = "CREATE TABLE " + NotificacionContract.NotificacionEntry.TABLE_NAME + " (" +
-                NotificacionContract.NotificacionEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "+
-                NotificacionContract.NotificacionEntry.ID_NOTIFICACION + " INTEGER NOT NULL AUTOINCREMENT, "+
+                //NotificacionContract.NotificacionEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "+
+                NotificacionContract.NotificacionEntry.ID_NOTIFICACION + " INTEGER NOT NULL PRIMARY KEY, "+
                 NotificacionContract.NotificacionEntry.ID_MEDICAMENTO + " INTEGER NOT NULL, "+
                 NotificacionContract.NotificacionEntry.FECHA + "  TEXT NOT NULL, "+
                 NotificacionContract.NotificacionEntry.HORA + "  TEXT NOT NULL, "+
@@ -106,7 +106,7 @@ public class SchemaDB {
         //sentencia sql para crear la tabla cuentas
         qryCreateTableAccounts = "CREATE TABLE " + CuentaContract.CuentaEntry.TABLE_NAME + " (" +
                // CuentaContract.CuentaEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "+
-                CuentaContract.CuentaEntry.ID_CUENTA + " INTEGER NOT NULL  PRIMARY KEY, "+
+                CuentaContract.CuentaEntry.ID_CUENTA + " INTEGER NOT NULL PRIMARY KEY, "+
                 CuentaContract.CuentaEntry.EMAIL + " TEXT , "+
                 CuentaContract.CuentaEntry.ID_PACIENTE + "  INTEGER NOT NULL, "+
                 CuentaContract.CuentaEntry.TIPO_CUENTA + "  TEXT NOT NULL, "+
