@@ -13,7 +13,11 @@
         <activity
             android:name=".splash.Splash"
             android:theme="@style/SplashTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".registration.Register" />
         <activity
@@ -31,11 +35,6 @@
         </receiver>
 
         <activity android:name=".notifications.NotificationToma">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 
