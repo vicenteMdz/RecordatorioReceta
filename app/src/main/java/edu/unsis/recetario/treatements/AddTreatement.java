@@ -1,7 +1,9 @@
 package edu.unsis.recetario.treatements;
 
 import android.app.PendingIntent;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -36,6 +38,7 @@ public class AddTreatement extends AppCompatActivity {
     public View view;
     EditText nombreTratamiento;
     EditText descripcionTratamiento;
+    ArrayList<Medicamento> medicamentos;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +53,15 @@ public class AddTreatement extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.window_close);
 
-        ArrayList<Medicamento> medicamentos = SessionObject.getListMedicamentos();
+        final Tratamiento tratamiento = SessionObject.getTratamiento();
+        nombreTratamiento = (EditText) findViewById(R.id.txtNombreTratamiento);
+        descripcionTratamiento = (EditText) findViewById(R.id.descripcionTratamiento);
+        Log.d("tratamiento",tratamiento.toString());
+        nombreTratamiento.setText(tratamiento.getNombreTratamiento());
+        descripcionTratamiento.setText(tratamiento.getDescripcion());
+
+
+        medicamentos = SessionObject.getListMedicamentos();
         Log.d("listCount", ""+medicamentos.size());
         for(Medicamento m : medicamentos){
             Log.d("medicamento",m.toString());
@@ -68,6 +79,10 @@ public class AddTreatement extends AppCompatActivity {
         findViewById(R.id.addMedicine).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                nombreTratamiento = (EditText) findViewById(R.id.txtNombreTratamiento);
+                descripcionTratamiento = (EditText) findViewById(R.id.descripcionTratamiento);
+                tratamiento.setNombreTratamiento(nombreTratamiento.getText().toString());
+                tratamiento.setDescripcion(descripcionTratamiento.getText().toString());
                 Intent intent = new Intent(AddTreatement.this, add_medicines.class);
                 startActivity(intent);
             }
@@ -91,9 +106,52 @@ public class AddTreatement extends AppCompatActivity {
                 guardaTratamientos();
                 return true;
             case android.R.id.home:
-                SessionObject.setMedicamentos(null);
-                Intent intent = new Intent(AddTreatement.this, Home.class);
-                startActivity(intent);
+                //validamos si se modificó algún campo para mandar mensaje de confirmacion de cancelar alta
+                boolean cancel = false;
+                //Variable para contener el campo a ser enfocado
+                View focusView = null;
+                int cont =0;
+                if (!TextUtils.isEmpty(nombreTratamiento.getText().toString())) {
+                    cont=cont+1;
+                }
+                if (!TextUtils.isEmpty(descripcionTratamiento.getText().toString())) {
+                    cont=cont+1;
+                }
+                if (medicamentos.size()>0){
+                    cont=cont+1;
+                }
+                if (cont>0) {
+
+                    //Crea el diálogo
+                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                    //Define el mensaje
+                    builder.setMessage("Lo datos del tratamiento aún no han sido guardados.\n" +
+                            "¿Deseas salir sin guardar los datos?");
+                    //Le agrega el botón "Sí"
+                    builder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+
+                            Intent intent = new Intent(AddTreatement.this, Home.class);
+                            startActivity(intent);
+                            SessionObject.setMedicamentos(null);
+                            SessionObject.setTratamiento(null);
+                        }
+                    });
+                    //Le agrega el botón "No"
+                    builder.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+
+                        }
+                    });
+                    //Muestra el dialogo
+                    builder.show();
+
+                } else {
+                    Intent intent = new Intent(AddTreatement.this, Home.class);
+                    startActivity(intent);
+                    SessionObject.setMedicamentos(null);
+                    SessionObject.setTratamiento(null);
+                }
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -170,6 +228,7 @@ public class AddTreatement extends AppCompatActivity {
                         }*/
                     }
                     SessionObject.setMedicamentos(null);
+                    SessionObject.setTratamiento(null);
                     Intent intent = new Intent(AddTreatement.this, Home.class);
                     startActivity(intent);
                 }catch(Exception e){

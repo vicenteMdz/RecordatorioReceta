@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import edu.unsis.recetario.medicines.model.Medicamento;
 import edu.unsis.recetario.patients.model.Pacientes;
+import edu.unsis.recetario.treatements.model.Tratamiento;
 
 /**
  * Created by Meltsan on 04/12/17.
@@ -13,6 +14,7 @@ public class SessionObject {
     private static SessionObject sessionObject;
     private static Pacientes currentPacient;
     private static ArrayList<Medicamento> medicamentos;
+    private static Tratamiento tratamiento;
 
     public static SessionObject getInstance(){
         if (sessionObject == null){
@@ -36,6 +38,16 @@ public class SessionObject {
         sessionObject.medicamentos = medicamentos;
     }
 
+    public static Tratamiento getTratamiento() {
+        if(tratamiento == null){
+            tratamiento = new Tratamiento();
+        }
+        return tratamiento;
+    }
+
+    public static void setTratamiento(Tratamiento tratamiento) {
+        SessionObject.tratamiento = tratamiento;
+    }
 
     public static Pacientes getCurrentPacient() {
         if(currentPacient == null){
@@ -55,4 +67,5 @@ public class SessionObject {
             e.printStackTrace();
         }
     }
+
 }

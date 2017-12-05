@@ -128,7 +128,7 @@ public class add_medicines extends AppCompatActivity implements OnClickListener{
                     //Crea el diálogo
                     AlertDialog.Builder builder = new AlertDialog.Builder(this);
                     //Define el mensaje
-                    builder.setMessage("¿En verdad deseas salir?");
+                    builder.setMessage("¿Deseas salir sin guardar los datos?");
                     //Le agrega el botón "Sí"
                     builder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
