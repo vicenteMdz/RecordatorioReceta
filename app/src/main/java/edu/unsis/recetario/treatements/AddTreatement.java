@@ -3,6 +3,8 @@ package edu.unsis.recetario.treatements;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -12,6 +14,7 @@ import android.view.View;
 import java.util.ArrayList;
 
 import edu.unsis.recetario.R;
+import edu.unsis.recetario.home.AdaptadorInicio;
 import edu.unsis.recetario.home.Home;
 import edu.unsis.recetario.medicines.add_medicines;
 import edu.unsis.recetario.medicines.model.Medicamento;
@@ -19,6 +22,7 @@ import session.SessionObject;
 
 public class AddTreatement extends AppCompatActivity {
 
+    public View view;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +42,15 @@ public class AddTreatement extends AppCompatActivity {
         for(Medicamento m : medicamentos){
             Log.d("medicamento",m.toString());
         }
+
+        RecyclerView contendor=(RecyclerView) findViewById(R.id.RecicleViewShowMedicines);
+        contendor.setHasFixedSize(true);
+        LinearLayoutManager layout=new LinearLayoutManager(this);
+        layout.setOrientation(LinearLayoutManager.VERTICAL);
+        contendor.setLayoutManager(layout);
+        ListMedicineAdapter adapter = new ListMedicineAdapter(medicamentos);
+        contendor.setAdapter(adapter);
+        Log.d("xxxx", "Se finalizó la creación del reciclerview");
 
         findViewById(R.id.addMedicine).setOnClickListener(new View.OnClickListener() {
             @Override

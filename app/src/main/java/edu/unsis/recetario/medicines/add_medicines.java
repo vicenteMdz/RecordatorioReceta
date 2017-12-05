@@ -223,7 +223,8 @@ private void saveMedicine(){
         medicamento.setSwActivo("A");
         medicamento.setSwFinalizado("N");
         SessionObject.getListMedicamentos().add(medicamento);
-        txtduracionToma.setText("Continuo");
+        Intent intent = new Intent(add_medicines.this, AddTreatement.class);
+        startActivity(intent);
     }
 
 }

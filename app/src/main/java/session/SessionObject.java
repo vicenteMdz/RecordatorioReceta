@@ -44,4 +44,12 @@ public class SessionObject {
     public void setCurrentPacient(Pacientes currentPacient) {
         this.currentPacient = currentPacient;
     }
+
+    public static void deleteMedicine(int index){
+        try{
+            getMedicamentos().remove(index);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
 }
