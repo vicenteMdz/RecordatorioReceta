@@ -87,6 +87,7 @@ public class Tratamiento {
 
     public ContentValues getContentValues(){
         ContentValues contentValues = new ContentValues();
+        contentValues.put(TratamientoContract.TratamientoEntry.ID_PACIENTE, this.idPaciente);
         contentValues.put(TratamientoContract.TratamientoEntry.NOMBRE_TRATAMIENTO,this.nombreTratamiento);
         contentValues.put(TratamientoContract.TratamientoEntry.DESCRIPCION,this.descripcion);
         contentValues.put(TratamientoContract.TratamientoEntry.FECHA_ALTA,this.fechaAlta);

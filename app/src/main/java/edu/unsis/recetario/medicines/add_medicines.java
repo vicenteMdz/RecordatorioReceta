@@ -67,7 +67,7 @@ public class add_medicines extends AppCompatActivity implements OnClickListener{
         spinnerDuracion  = (Spinner) findViewById(R.id.spDuracion);
         sButton = (Switch) findViewById(R.id.swDuracion);
         sButton.setOnClickListener(this);
-        dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
+        dateFormatter = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
         txtTime = (EditText) findViewById(R.id.edtHora);
         txtTime.setOnClickListener(this);
 

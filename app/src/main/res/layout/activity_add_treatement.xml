@@ -65,7 +65,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Nombre del tratamiento"
-                        android:id="@+id/editText7"
+                        android:id="@+id/txtNombreTratamiento"
                         android:lines="1"
                         android:maxLines="1" />
 
@@ -75,7 +75,7 @@
                         android:inputType="textMultiLine"
                         android:ems="10"
                         android:hint="Descripción"
-                        android:id="@+id/editText8"
+                        android:id="@+id/descripcionTratamiento"
                         android:layout_weight="1.11"
                         android:lines="4"
                         android:minLines="5" />

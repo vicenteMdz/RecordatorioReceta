@@ -11,6 +11,7 @@ import edu.unsis.recetario.medicines.dao.MedicamentoContract;
 import edu.unsis.recetario.medicines.model.Medicamento;
 import edu.unsis.recetario.notifications.dao.NotificacionContract;
 import edu.unsis.recetario.notifications.model.Notificacion;
+import edu.unsis.recetario.patients.dao.PacientesContract;
 import edu.unsis.recetario.treatements.model.Tratamiento;
 
 /**
@@ -33,6 +34,27 @@ public class TratamientoDAOImpl extends  TratamientoDAO {
             database.close();
         }catch (Exception e){
             Log.d("ExceptionInsert", e.getCause().getMessage());
+            throw new Exception();
+        }
+    }
+
+    public int getIdTratamientoInsertado() throws Exception{
+        String qryGetTratamiento = "SELECT MAX("+ TratamientoContract.TratamientoEntry.ID_TRATAMIENTO+")" +
+
+                "FROM " + TratamientoContract.TratamientoEntry.TABLE_NAME + " ";
+        try {
+            openRead();
+            Cursor cursor = database.rawQuery(qryGetTratamiento, null);
+            if(cursor.moveToNext()){
+                int r = cursor.getInt(0);
+                database.close();
+                return r;
+            }else{
+                database.close();
+                return -1;
+            }
+        }catch (Exception e){
+            Log.d("ExceptionGetLasId", e.getCause().getMessage());
             throw new Exception();
         }
     }
@@ -63,8 +85,6 @@ public class TratamientoDAOImpl extends  TratamientoDAO {
             throw new Exception();
         }
     }
-
-
 
     public Tratamiento getTratamientoById(int idTratamiento) throws Exception{
         String qryGetTratamiento = "SELECT " + TratamientoContract.TratamientoEntry.ID_TRATAMIENTO + ", " +

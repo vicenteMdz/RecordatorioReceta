@@ -30,9 +30,6 @@ public class SchedulingAlarm {
 
     public void createAlarm(Medicamento medicamento, PendingIntent pendingIntent) throws Exception{
         Log.d("createAlarm","Configurando alarma***");
-                /* Retrieve a PendingIntent that will perform a broadcast */
-        //Intent alarmIntent = new Intent(Home.this, AlarmReceiver.class);
-        //PendingIntent pendingIntent = PendingIntent.getBroadcast(Home.this, 0, alarmIntent, 0);
         Calendar fechaInicioToma = Calendar.getInstance();
         try{
             AlarmManager alarmManager = (AlarmManager) this.context.getSystemService(Context.ALARM_SERVICE);
@@ -67,5 +64,9 @@ public class SchedulingAlarm {
 
     private long getinterval(int minutos, int horas){
         return 1000 * 60 * minutos * horas;
+    }
+
+    public void calculaTomas(){
+
     }
 }

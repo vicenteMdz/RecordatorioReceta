@@ -33,11 +33,11 @@ public class Connection extends SQLiteOpenHelper {
             //crear tabla pacientes
             db.execSQL(SchemaDB.getQryCreateTablePacientes());
             //crear tabla tratamientos
-          //  db.execSQL(SchemaDB.getQryCreateTableTratamientos());
+            db.execSQL(SchemaDB.getQryCreateTableTratamientos());
             //crear tabla medicamentos
-            //db.execSQL(SchemaDB.getQryCreateTableMedicamentos());
+            db.execSQL(SchemaDB.getQryCreateTableMedicamentos());
             //crear tabla notificaciones
-            //db.execSQL(SchemaDB.getQryCreateTableNotificaciones());
+            db.execSQL(SchemaDB.getQryCreateTableNotificaciones());
             //crear tabla cuentas
             db.execSQL(SchemaDB.getQryCreateTableAccounts());
         }catch (Exception e){
