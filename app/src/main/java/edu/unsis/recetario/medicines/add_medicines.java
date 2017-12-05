@@ -266,8 +266,6 @@ private void saveMedicine(){
         }else{
             //Do something when switch is off
             txtduracionToma.setVisibility(View.VISIBLE);
-            txtduracionToma.setText(" ");
-
             textViewDuracion.setVisibility(View.VISIBLE);
             spinnerDuracion.setVisibility(View.VISIBLE);
         }
