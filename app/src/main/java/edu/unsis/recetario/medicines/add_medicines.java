@@ -8,6 +8,7 @@ import edu.unsis.recetario.R;
 import edu.unsis.recetario.medicines.model.Medicamento;
 import edu.unsis.recetario.home.Home;
 import edu.unsis.recetario.treatements.AddTreatement;
+import session.SessionObject;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -219,13 +220,9 @@ private void saveMedicine(){
         medicamento.setTipoDuracion(Duracion.getSelectedItem().toString());
         medicamento.setHoraInicio(Hora.getText().toString());
         medicamento.setFechaInicio(Fecha.getText().toString());
-        medicamento.setIdMedicamento(4);
-        medicamento.setIdTratamiento(4);
         medicamento.setSwActivo("A");
         medicamento.setSwFinalizado("N");
-
-        ArrayList<Medicamento> medicamentos = new ArrayList<Medicamento>();
-        medicamentos.add(medicamento);
+        SessionObject.getListMedicamentos().add(medicamento);
         txtduracionToma.setText("Continuo");
     }
 
@@ -266,6 +263,7 @@ private void saveMedicine(){
         }else{
             //Do something when switch is off
             txtduracionToma.setVisibility(View.VISIBLE);
+
             textViewDuracion.setVisibility(View.VISIBLE);
             spinnerDuracion.setVisibility(View.VISIBLE);
         }

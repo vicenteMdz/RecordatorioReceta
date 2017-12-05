@@ -4,13 +4,18 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import java.util.ArrayList;
+
 import edu.unsis.recetario.R;
 import edu.unsis.recetario.home.Home;
 import edu.unsis.recetario.medicines.add_medicines;
+import edu.unsis.recetario.medicines.model.Medicamento;
+import session.SessionObject;
 
 public class AddTreatement extends AppCompatActivity {
 
@@ -28,6 +33,11 @@ public class AddTreatement extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.window_close);
 
+        ArrayList<Medicamento> medicamentos = SessionObject.getListMedicamentos();
+        Log.d("listCount", ""+medicamentos.size());
+        for(Medicamento m : medicamentos){
+            Log.d("medicamento",m.toString());
+        }
 
         findViewById(R.id.addMedicine).setOnClickListener(new View.OnClickListener() {
             @Override

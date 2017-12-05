@@ -101,7 +101,7 @@ public class PatientsDAOImpl extends PatientsDAO {
         }
     }
 
-    public Pacientes getLastId() throws Exception{
+    public int getIdPacienteInsertado() throws Exception{
         String qryGetPaciente = "SELECT MAX("+PacientesContract.PacientesEntry.ID_PACIENTE+")" +
 
                 "FROM " + PacientesContract.PacientesEntry.TABLE_NAME + " "; //+
@@ -109,20 +109,17 @@ public class PatientsDAOImpl extends PatientsDAO {
                 //idPaciente+ ";";
         try {
             openRead();
-
-
             Cursor cursor = database.rawQuery(qryGetPaciente, null);
             if(cursor.moveToNext()){
-                Pacientes pacientes=new Pacientes();
-                pacientes.setIdPaciente(cursor.getInt(0));
+                int r = cursor.getInt(0);
                 database.close();
-                return pacientes;
+                return r;
             }else{
                 database.close();
-                return null;
+                return -1;
             }
         }catch (Exception e){
-            Log.d("ExceptionInsert", e.getCause().getMessage());
+            Log.d("ExceptionGetLasId", e.getCause().getMessage());
             throw new Exception();
         }
     }

@@ -135,7 +135,8 @@
                             android:id="@+id/spDosis"
                             android:layout_width="102dp"
                             android:layout_height="wrap_content"
-                            android:entries="@array/dosis" />
+                            android:entries="@array/dosis"
+                            android:layout_weight="0.39" />
 
                     </LinearLayout>
 

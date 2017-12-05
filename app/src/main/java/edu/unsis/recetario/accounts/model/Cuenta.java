@@ -94,7 +94,7 @@ public class Cuenta {
         contentValues.put(CuentaContract.CuentaEntry.EMAIL,this.email);
         contentValues.put(CuentaContract.CuentaEntry.ID_PACIENTE,this.idPaciente);
         contentValues.put(CuentaContract.CuentaEntry.TIPO_CUENTA, this.getTipoCuenta());
-        contentValues.put(CuentaContract.CuentaEntry.ID_PACIENTE,this.idPacientePropietario);
+        contentValues.put(CuentaContract.CuentaEntry.ID_PACIENTE_PROPIETARIO,this.idPacientePropietario);
         contentValues.put(CuentaContract.CuentaEntry.SW_ACTIVO, this.getSwActivo());
         contentValues.put(CuentaContract.CuentaEntry.FECHA_ALTA,this.fechaAlta);
         contentValues.put(CuentaContract.CuentaEntry.FECHA_ALTA_PREMIUM,this.fechaAltaPremium);
