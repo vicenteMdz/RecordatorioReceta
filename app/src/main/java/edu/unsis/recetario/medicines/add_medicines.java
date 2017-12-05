@@ -257,7 +257,6 @@ private void saveMedicine(){
         if(sButton.isChecked()){
             //Do something when switch is on
             txtduracionToma.setVisibility(View.INVISIBLE);
-            txtduracionToma.setText("Continuo");
             textViewDuracion.setVisibility(View.INVISIBLE);
             spinnerDuracion.setVisibility(View.INVISIBLE);
 
