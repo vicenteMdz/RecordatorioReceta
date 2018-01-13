@@ -11,7 +11,7 @@ import edu.unsis.recetario.patients.model.Pacientes;
 public class SessionObject {
 
     private static SessionObject sessionObject;
-    private Pacientes currentPacient;
+    private static Pacientes currentPacient;
     private static ArrayList<Medicamento> medicamentos;
 
     public static SessionObject getInstance(){
@@ -37,11 +37,22 @@ public class SessionObject {
     }
 
 
-    public Pacientes getCurrentPacient() {
+    public static Pacientes getCurrentPacient() {
+        if(currentPacient == null){
+            currentPacient = new Pacientes();
+        }
         return currentPacient;
     }
 
-    public void setCurrentPacient(Pacientes currentPacient) {
-        this.currentPacient = currentPacient;
+    public static void setCurrentPacient(Pacientes currentPacient) {
+        sessionObject.currentPacient = currentPacient;
+    }
+
+    public static void deleteMedicine(int index){
+        try{
+            getMedicamentos().remove(index);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 }

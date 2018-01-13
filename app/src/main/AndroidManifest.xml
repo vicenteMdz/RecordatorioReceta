@@ -26,7 +26,7 @@
             android:theme="@style/AppTheme" />
         <activity android:name=".treatements.AddTreatement"></activity>
         <activity android:name=".medicines.add_medicines">
-        </activity>
+       </activity>
 
         <receiver android:name=".notifications.alarms.receive.AlarmReceiver">
             <intent-filter>
@@ -38,4 +38,4 @@
         </activity>
     </application>
 
-</manifest>
+   </manifest>
