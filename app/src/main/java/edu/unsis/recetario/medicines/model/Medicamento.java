@@ -1,6 +1,8 @@
 package edu.unsis.recetario.medicines.model;
 
 import android.content.ContentValues;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import edu.unsis.recetario.medicines.dao.MedicamentoContract;
 import edu.unsis.recetario.notifications.dao.NotificacionContract;
@@ -8,7 +10,7 @@ import edu.unsis.recetario.notifications.dao.NotificacionContract;
 /**
  * Created by Meltsan on 25/11/17.
  */
-public class Medicamento {
+public class Medicamento implements Parcelable{
 
     private int idMedicamento;
     private int idTratamiento;
@@ -26,6 +28,28 @@ public class Medicamento {
     private String swFinalizado; //si la toma del medicamento fue finalizada
     //agregar atributos para emitir aviso cuando el medicamento está por terminarse.
 
+    public Medicamento() {
+    }
+
+    /**
+     * Constructor para crear el objeto a partir de un parcelable
+     * @param in
+     */
+    public Medicamento(Parcel in) {
+        readFromParcel(in);
+    }
+
+    public static final Creator<Medicamento> CREATOR = new Creator<Medicamento>() {
+        @Override
+        public Medicamento createFromParcel(Parcel in) {
+            return new Medicamento(in);
+        }
+
+        @Override
+        public Medicamento[] newArray(int size) {
+            return new Medicamento[size];
+        }
+    };
 
     public int getIdMedicamento() {
         return idMedicamento;
@@ -153,5 +177,72 @@ public class Medicamento {
         contentValues.put(MedicamentoContract.MedicamentoEntry.SWACTIVO,this.swActivo);
         contentValues.put(MedicamentoContract.MedicamentoEntry.SWFINALIZADO,this.swFinalizado);
         return contentValues;
+    }
+
+    @Override
+    public String toString(){
+        return "{ idMedicamento: " + idMedicamento +
+                "\n idTratamiento: " + idTratamiento +
+                "\n nombre: " + nombre +
+                "\n descripcion: " + descripcion +
+                "\n numeroDosis: " + numeroDosis +
+                "\n tipoDosis: " + tipoDosis +
+                "\n periodoToma: " + periodoToma +
+                "\n tipoPeriodoToma: " + tipoPeriodoToma +
+                "\n duracionToma: " + duracionToma +
+                "\n tipoDuracion: " + tipoDuracion +
+                "\n fechaInicio: " + fechaInicio +
+                "\n horaInicio: " + horaInicio +
+                "\n swActivo: " + swActivo +
+                "\n swFinalizado: " + swFinalizado + "}";
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    /**
+     * Escribir a un parcel, OJO el orden es importante, es como escribir en un archivo binario
+     * @param dest Parcel donde se va a escribir
+     * @param flags ver documentacion de Parcelable.writeToParcel
+     */
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(idMedicamento);
+        dest.writeInt(idTratamiento);
+        dest.writeString(nombre);
+        dest.writeString(descripcion);
+        dest.writeFloat(numeroDosis);
+        dest.writeString(tipoDosis);
+        dest.writeInt(periodoToma);
+        dest.writeString(tipoPeriodoToma);
+        dest.writeInt(duracionToma);
+        dest.writeString(tipoDuracion);
+        dest.writeString(fechaInicio);
+        dest.writeString(horaInicio);
+        dest.writeString(swActivo);
+        dest.writeString(swFinalizado);
+    }
+
+    /**
+     * Clase para recuperar los datos de un parcel, IMPORTANTE leerlos en el mismo orden que se escribieron!
+     * @param in Parcel con los datos a leer
+     */
+    private void readFromParcel(Parcel in) {
+        in.readInt();
+        in.readInt();
+        in.readString();
+        in.readString();
+        in.readFloat();
+        in.readString();
+        in.readInt();
+        in.readString();
+        in.readInt();
+        in.readString();
+        in.readString();
+        in.readString();
+        in.readString();
+        in.readString();
     }
 }

@@ -21,11 +21,14 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 import edu.unsis.recetario.R;
 import edu.unsis.recetario.accounts.dao.AccountsDAOImpl;
 import edu.unsis.recetario.medicines.model.Medicamento;
 import edu.unsis.recetario.notifications.alarms.receive.AlarmReceiver;
 import edu.unsis.recetario.notifications.alarms.schedule.SchedulingAlarm;
+import edu.unsis.recetario.notifications.dao.NotificacionesDAOImpl;
 import edu.unsis.recetario.notifications.model.Notificacion;
 import edu.unsis.recetario.patients.dao.PatientsDAOImpl;
 import edu.unsis.recetario.patients.model.Pacientes;
@@ -68,6 +71,9 @@ public class Home extends AppCompatActivity
             String nom= paciente.getNombre() + " " + paciente.getPrimerApellido() +
                     " " + paciente.getSegundoApellido();
             userName.setText(nom);
+
+            NotificacionesDAOImpl notificacionesDAO = new NotificacionesDAOImpl(this);
+
         }catch(Exception e){
             Toast.makeText(this, "Error al cargar datos del usario", Toast.LENGTH_SHORT);
         }

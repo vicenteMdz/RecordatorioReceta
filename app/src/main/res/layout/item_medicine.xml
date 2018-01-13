@@ -8,7 +8,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="nombre medicamento"
-        android:id="@+id/txtNameMedicine"
+        android:id="@+id/itemMedicine"
         android:layout_weight="1"
         android:textColor="@color/colorComplement"
         android:layout_centerVertical="true"

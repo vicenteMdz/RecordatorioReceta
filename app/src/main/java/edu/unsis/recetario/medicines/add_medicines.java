@@ -117,10 +117,10 @@ public class add_medicines extends AppCompatActivity implements OnClickListener{
                 //Variable para contener el campo a ser enfocado
                 View focusView = null;
                 int cont =0;
-                if (!TextUtils.isEmpty(Nombre.getText().toString())) {
+                if (!TextUtils.isEmpty(Nombre.getText().toString().trim())) {
                     cont=cont+1;
                 }
-                if (!TextUtils.isEmpty(Descripcion.getText().toString())) {
+                if (!TextUtils.isEmpty(Descripcion.getText().toString().trim())) {
                     cont=cont+1;
                 }
                 if (cont>0) {
