@@ -7,6 +7,8 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import java.util.ArrayList;
+import java.util.List;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +20,7 @@ import edu.unsis.recetario.home.Home;
 import edu.unsis.recetario.medicines.add_medicines;
 import edu.unsis.recetario.treatements.dao.TratamientoDAOImpl;
 import edu.unsis.recetario.treatements.model.Tratamiento;
+import session.SessionObject;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -38,7 +41,6 @@ public class ListaTratamientos extends Fragment {
     private String mParam2;
     View view;
     private OnFragmentInteractionListener mListener;
-    ArrayList<DatosListaTratamientos> list=new ArrayList<>();
     public ListaTratamientos() {
         // Required empty public constructor
     }
@@ -95,20 +97,11 @@ public class ListaTratamientos extends Fragment {
         TratamientoDAOImpl tratamientoDAO=new TratamientoDAOImpl(null);
         Tratamiento tratamiento=new Tratamiento();
         /**Declarando una lista en donde se guardaran los medicamentos del tratamiento*/
-
-
+        List<Tratamiento> list= SessionObject.getListTratamientos();
         try {
             /**Obteniendo el total de medicamentos */
-            int tot= tratamientoDAO.getAllTratamiento().size();
-            if(tot!=0) {
-                /**Si recorriendo la lista para recuperar los datos almacenados*/
-                /**Si recorriendo la lista para recuperar los datos almacenados*/
-                for (int i = 0; i < tot; i++) {
-                    tratamiento = tratamientoDAO.getAllTratamiento().get(i);
-                    list.add(new DatosListaTratamientos("Tratamiento : " + tratamiento.getNombreTratamiento()));
-                }
-            }
-
+            list = tratamientoDAO.getAllTratamiento();
+            SessionObject.setTratamientos(list);
         } catch (Exception e) {
             e.printStackTrace();
         }

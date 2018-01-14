@@ -11,6 +11,7 @@ import java.util.List;
 import edu.unsis.recetario.R;
 import edu.unsis.recetario.home.ViewHolder;
 import edu.unsis.recetario.treatements.ViewHolderListaTratamiento;
+import edu.unsis.recetario.treatements.model.Tratamiento;
 
 /**
  * Created by Octavio on 31/10/2017.
@@ -18,9 +19,9 @@ import edu.unsis.recetario.treatements.ViewHolderListaTratamiento;
 
 public class AdaptadorListaTratamiento extends RecyclerView.Adapter<ViewHolderListaTratamiento> {
 
-    List<DatosListaTratamientos> listaObajeto;
+    List<Tratamiento> listaObajeto;
 
-    public AdaptadorListaTratamiento(List<DatosListaTratamientos> listaObajeto) {
+    public AdaptadorListaTratamiento(List<Tratamiento> listaObajeto) {
         this.listaObajeto = listaObajeto;
     }
 

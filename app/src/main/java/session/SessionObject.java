@@ -1,6 +1,7 @@
 package session;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import edu.unsis.recetario.medicines.model.Medicamento;
 import edu.unsis.recetario.patients.model.Pacientes;
@@ -14,6 +15,7 @@ public class SessionObject {
     private static SessionObject sessionObject;
     private static Pacientes currentPacient;
     private static ArrayList<Medicamento> medicamentos;
+    private static List<Tratamiento> tratamientos;
     private static Tratamiento tratamiento;
 
     public static SessionObject getInstance(){
@@ -28,6 +30,21 @@ public class SessionObject {
             medicamentos = new ArrayList<Medicamento>();
         }
         return medicamentos;
+    }
+
+    public static List<Tratamiento> getListTratamientos(){
+        if(tratamientos == null){
+            tratamientos = new ArrayList<Tratamiento>();
+        }
+        return tratamientos;
+    }
+
+    public static List<Tratamiento> getTratamientos() {
+        return tratamientos;
+    }
+
+    public static void setTratamientos(List<Tratamiento> tratamientos) {
+        SessionObject.tratamientos = tratamientos;
     }
 
     public static ArrayList<Medicamento> getMedicamentos() {
@@ -63,6 +80,14 @@ public class SessionObject {
     public static void deleteMedicine(int index){
         try{
             getMedicamentos().remove(index);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public static void deleteTratamiento(int index){
+        try{
+            getTratamientos().remove(index);
         }catch(Exception e){
             e.printStackTrace();
         }
