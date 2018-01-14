@@ -1,11 +1,14 @@
 package edu.unsis.recetario.treatements;
 
 import android.app.PendingIntent;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -41,6 +44,7 @@ public class AddTreatement extends AppCompatActivity {
     public View view;
     EditText nombreTratamiento;
     EditText descripcionTratamiento;
+    ArrayList<Medicamento> medicamentos;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,7 +59,15 @@ public class AddTreatement extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.window_close);
 
-        ArrayList<Medicamento> medicamentos = SessionObject.getListMedicamentos();
+        final Tratamiento tratamiento = SessionObject.getTratamiento();
+        nombreTratamiento = (EditText) findViewById(R.id.txtNombreTratamiento);
+        descripcionTratamiento = (EditText) findViewById(R.id.descripcionTratamiento);
+        Log.d("tratamiento",tratamiento.toString());
+        nombreTratamiento.setText(tratamiento.getNombreTratamiento());
+        descripcionTratamiento.setText(tratamiento.getDescripcion());
+
+
+        medicamentos = SessionObject.getListMedicamentos();
         Log.d("listCount", ""+medicamentos.size());
         for(Medicamento m : medicamentos){
             Log.d("medicamento",m.toString());
@@ -73,6 +85,10 @@ public class AddTreatement extends AppCompatActivity {
         findViewById(R.id.addMedicine).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                nombreTratamiento = (EditText) findViewById(R.id.txtNombreTratamiento);
+                descripcionTratamiento = (EditText) findViewById(R.id.descripcionTratamiento);
+                tratamiento.setNombreTratamiento(nombreTratamiento.getText().toString());
+                tratamiento.setDescripcion(descripcionTratamiento.getText().toString());
                 Intent intent = new Intent(AddTreatement.this, add_medicines.class);
                 startActivity(intent);
             }
@@ -96,9 +112,52 @@ public class AddTreatement extends AppCompatActivity {
                 guardaTratamientos();
                 return true;
             case android.R.id.home:
-                SessionObject.setMedicamentos(null);
-                Intent intent = new Intent(AddTreatement.this, Home.class);
-                startActivity(intent);
+                //validamos si se modificó algún campo para mandar mensaje de confirmacion de cancelar alta
+                boolean cancel = false;
+                //Variable para contener el campo a ser enfocado
+                View focusView = null;
+                int cont =0;
+                if (!TextUtils.isEmpty(nombreTratamiento.getText().toString().trim())) {
+                    cont=cont+1;
+                }
+                if (!TextUtils.isEmpty(descripcionTratamiento.getText().toString().trim())) {
+                    cont=cont+1;
+                }
+                if (medicamentos.size()>0){
+                    cont=cont+1;
+                }
+                if (cont>0) {
+
+                    //Crea el diálogo
+                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                    //Define el mensaje
+                    builder.setMessage("Lo datos del tratamiento aún no han sido guardados.\n" +
+                            "¿Deseas salir sin guardar los datos?");
+                    //Le agrega el botón "Sí"
+                    builder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+
+                            Intent intent = new Intent(AddTreatement.this, Home.class);
+                            startActivity(intent);
+                            SessionObject.setMedicamentos(null);
+                            SessionObject.setTratamiento(null);
+                        }
+                    });
+                    //Le agrega el botón "No"
+                    builder.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+
+                        }
+                    });
+                    //Muestra el dialogo
+                    builder.show();
+
+                } else {
+                    Intent intent = new Intent(AddTreatement.this, Home.class);
+                    startActivity(intent);
+                    SessionObject.setMedicamentos(null);
+                    SessionObject.setTratamiento(null);
+                }
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -125,17 +184,24 @@ public class AddTreatement extends AppCompatActivity {
             focusView = descripcionTratamiento;
             cancel = true;
         }
+
         if (cancel) {
             //Enfocar el Campo del Error
-
             focusView.requestFocus();
-
         } else {
             Log.d("paciente",SessionObject.getCurrentPacient().toString());
             if(SessionObject.getInstance().getCurrentPacient() != null){
                 //declaramos interfaces java para persistir tratamientos y medicamentos en java
                 TratamientoDAOImpl tratamientoDAO = new TratamientoDAOImpl(this);
                 MedicineDAOImpl medicineDAO = new MedicineDAOImpl(this);
+
+                ArrayList<Medicamento> medicamentos = SessionObject.getListMedicamentos();
+                Log.d("Tamlistamedicamentos", ""+medicamentos.size());
+                if(medicamentos.size() == 0){//guardamos solo si hay medicamentos asociados al tratamiento
+                    Toast.makeText(this, "Añade medicamentos al tratamiento", Toast.LENGTH_LONG).show();
+                    return;
+                }
+
                 //Obteniendo la fecha actual
                 Date dNow = new Date();
                 SimpleDateFormat diaN = new SimpleDateFormat ("dd/MM/yyyy");
@@ -152,29 +218,33 @@ public class AddTreatement extends AppCompatActivity {
                     tratamientoDAO.insertTratamiento(tratamiento);
                     tratamiento.setIdTratamiento(tratamientoDAO.getIdTratamientoInsertado());
                     //reccorrer la lista de medicamentos e insertar en la tabla de medicamentos
-                    ArrayList<Medicamento> medicamentos = SessionObject.getListMedicamentos();
-                    Log.d("listCount", ""+medicamentos.size());
+
+                    String alarmId;
                     for(Medicamento m : medicamentos){
                         m.setIdTratamiento(tratamiento.getIdTratamiento());
                         //persistimos cada medicamento en la base de datos
                         medicineDAO.insertMedicines(m);
 
+                        //obtenemos el id del medicamento desde la bd
+                        m.setIdMedicamento(medicineDAO.getIdMedicamentoInsertado());
                         //programamos la alarma para cada medicamento
 
-                        /*Intent alarmIntent = new Intent(AddTreatement.this, AlarmReceiver.class);
+                        Intent alarmIntent = new Intent(AddTreatement.this, AlarmReceiver.class);
                         //agregar un id al intent para despues con ese id eliminar la notificacion
-                        alarmIntent.putExtra("alarmaId",tratamiento.getNombreTratamiento().substring(0,2) +
-                            "_" + m.getNombre().substring(0,2) + "_" + m.getHoraInicio());
+                        alarmId = tratamiento.getNombreTratamiento().substring(0,2) +
+                                "_" + m.getNombre().substring(0,2) + "_" + m.getHoraInicio();
+                        alarmIntent.putExtra("alarmaId",alarmId);
                         PendingIntent pendingIntent = PendingIntent.getBroadcast(AddTreatement.this, 0, alarmIntent, 0);
                         SchedulingAlarm schedulingAlarm = new SchedulingAlarm(getBaseContext());
                         try{
-                            schedulingAlarm.createAlarm(m, pendingIntent);
+                            schedulingAlarm.createAlarm(m, pendingIntent, alarmId);
                         }catch(Exception e){
                             Log.d("errorSchedulingTask", e.getCause().getMessage());
                             e.printStackTrace();
-                        }*/
+                        }
                     }
                     SessionObject.setMedicamentos(null);
+                    SessionObject.setTratamiento(null);
                     Intent intent = new Intent(AddTreatement.this, Home.class);
                     startActivity(intent);
                 }catch(Exception e){

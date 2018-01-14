@@ -10,6 +10,7 @@ import java.util.List;
 import edu.unsis.recetario.medicines.model.Medicamento;
 import edu.unsis.recetario.notifications.dao.NotificacionContract;
 import edu.unsis.recetario.notifications.model.Notificacion;
+import edu.unsis.recetario.treatements.dao.TratamientoContract;
 
 /**
  * Created by Octavio on 03/12/2017.
@@ -160,6 +161,27 @@ public class MedicineDAOImpl extends MedicineDAO {
             throw new Exception();
         }
         return listaMedicine;
+    }
+
+    public int getIdMedicamentoInsertado() throws Exception{
+        String qryGetMedicamentoId = "SELECT MAX("+ MedicamentoContract.MedicamentoEntry.IDMEDICAMENTO+")" +
+
+                "FROM " + MedicamentoContract.MedicamentoEntry.TABLE_NAME + " ";
+        try {
+            openRead();
+            Cursor cursor = database.rawQuery(qryGetMedicamentoId, null);
+            if(cursor.moveToNext()){
+                int r = cursor.getInt(0);
+                database.close();
+                return r;
+            }else{
+                database.close();
+                return -1;
+            }
+        }catch (Exception e){
+            Log.d("ExceptionGetLasId", e.getCause().getMessage());
+            throw new Exception();
+        }
     }
 
     public long getRowId() {
