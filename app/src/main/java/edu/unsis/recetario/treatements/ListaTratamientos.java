@@ -1,39 +1,33 @@
-package edu.unsis.recetario.home;
+package edu.unsis.recetario.treatements;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import java.util.ArrayList;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-
+import android.widget.Button;
 
 import edu.unsis.recetario.R;
-
-import edu.unsis.recetario.medicines.dao.MedicineDAOImpl;
-import edu.unsis.recetario.medicines.model.Medicamento;
+import edu.unsis.recetario.home.DatosInicio;
+import edu.unsis.recetario.home.Home;
+import edu.unsis.recetario.medicines.add_medicines;
 import edu.unsis.recetario.treatements.dao.TratamientoDAOImpl;
 import edu.unsis.recetario.treatements.model.Tratamiento;
-import session.SessionObject;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link Inicio.OnFragmentInteractionListener} interface
+ * {@link ListaTratamientos.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link Inicio#newInstance} factory method to
+ * Use the {@link ListaTratamientos#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Inicio extends Fragment {
+public class ListaTratamientos extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -44,8 +38,8 @@ public class Inicio extends Fragment {
     private String mParam2;
     View view;
     private OnFragmentInteractionListener mListener;
-
-    public Inicio() {
+    ArrayList<DatosListaTratamientos> list=new ArrayList<>();
+    public ListaTratamientos() {
         // Required empty public constructor
     }
 
@@ -55,12 +49,11 @@ public class Inicio extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment Inicio.
+     * @return A new instance of fragment ListaTratamientos.
      */
     // TODO: Rename and change types and number of parameters
-
-    public static Inicio newInstance(String param1, String param2) {
-        Inicio fragment = new Inicio();
+    public static ListaTratamientos newInstance(String param1, String param2) {
+        ListaTratamientos fragment = new ListaTratamientos();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -76,88 +69,67 @@ public class Inicio extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
+        /*view.findViewById(R.id.btnAgregarTratamiento).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(null, AddTreatement.class);
+                startActivity(intent);
+            }
+        });*/
+        /*Button agrgarTratamiento = (Button) view.findViewById(R.id.button);
+        agrgarTratamiento.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                    Toast.makeText(this, "Algunos campos estan vacíos ", Toast.LENGTH_SHORT).show();
+
+            }
+        });*/
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view=inflater.inflate(R.layout.fragment_inicio, container, false);
-        TextView nombePersona;
-        TextView fecha;
-
-        String nombrePac;
+        view=inflater.inflate(R.layout.fragment_lista_tratamientos, container, false);
         TratamientoDAOImpl tratamientoDAO=new TratamientoDAOImpl(null);
         Tratamiento tratamiento=new Tratamiento();
-
-        MedicineDAOImpl medicinaDAO=new MedicineDAOImpl(null);
-        Medicamento medicamento=new Medicamento();
         /**Declarando una lista en donde se guardaran los medicamentos del tratamiento*/
-        ArrayList<DatosInicio> list=new ArrayList<>();
 
-        /**Obteniendo la fecha actual para ver que medicamentos se tienen que mostrar segun el dia*/
-        Date dNow = new Date();
-        SimpleDateFormat nuevoformato = new SimpleDateFormat ("dd-MM-yyyy");
 
         try {
             /**Obteniendo el total de medicamentos */
-            int tot= medicinaDAO.getAllMedicine().size();
+            int tot= tratamientoDAO.getAllTratamiento().size();
             if(tot!=0) {
                 /**Si recorriendo la lista para recuperar los datos almacenados*/
+                /**Si recorriendo la lista para recuperar los datos almacenados*/
                 for (int i = 0; i < tot; i++) {
-                    medicamento = medicinaDAO.getAllMedicine().get(i);
-                    list.add(new DatosInicio("", "Medicamento: " + medicamento.getNombre(), "Hora de inicio: " + medicamento.getHoraInicio(), "Dosis: " + String.valueOf(medicamento.getNumeroDosis())));
+                    tratamiento = tratamientoDAO.getAllTratamiento().get(i);
+                    list.add(new DatosListaTratamientos("Tratamiento : " + tratamiento.getNombreTratamiento()));
                 }
-            }else{
-
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        SessionObject sessionObject = SessionObject.getInstance();
 
-
-        nombrePac=sessionObject.getCurrentPacient().getNombre();
-
-
-
-
-        nombePersona=(TextView)view.findViewById(R.id.txtnombrePersona);
-        nombePersona.setText(nombrePac);
-
-        fecha=(TextView)view.findViewById(R.id.txtFechaActual);
-
-
-        //Obteniendo la fecha actual
-
-        Log.d("Fecha actual",nuevoformato.format(dNow.getTime()));
-        SimpleDateFormat diaN = new SimpleDateFormat ("dd");
-        String diaNum = diaN.format(dNow.getTime());
-
-        SimpleDateFormat diaL = new SimpleDateFormat("EEEE");
-
-        String dayOfTheWeek = diaL.format(dNow);
-        SimpleDateFormat mes = new SimpleDateFormat("MMMM");
-        String mesA = mes.format(dNow);
-
-        fecha.setText(dayOfTheWeek+" "+diaNum+" de "+mesA);
-
-
-        /*ArrayList<DatosListaTratamientos> list=new ArrayList<>();
-        list.add(new DatosListaTratamientos("","paracetamol","8pm","2 tabletas"));
-
-        list.add(new DatosListaTratamientos("","paracetamol","12 am","media tableta"));
-        list.add(new DatosListaTratamientos("","paracetamol"," 4 am","1 tableta"));
-        list.add(new DatosListaTratamientos("","paracetamol"," 10 pm","muchas"));
-        list.add(new DatosListaTratamientos("","paracetamol"," 10 pm","muchas"));*/
-
-        RecyclerView contendor=(RecyclerView) view.findViewById(R.id.contenedor);
+        RecyclerView contendor=(RecyclerView) view.findViewById(R.id.contenedorTratamiento);
         contendor.setHasFixedSize(true);
         LinearLayoutManager Layaut=new LinearLayoutManager(getContext());
         Layaut.setOrientation(LinearLayoutManager.VERTICAL);
-        contendor.setAdapter(new AdaptadorInicio(list));
+        contendor.setAdapter(new AdaptadorListaTratamiento(list));
         contendor.setLayoutManager(Layaut);
+        /** creacion de boton Para llamar addTratamiento */
+
+        view.findViewById(R.id.btnAgregarTratamiento).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(getActivity(), AddTreatement.class);
+                startActivity(intent);
+            }
+        });
+
 
         return view;
     }
@@ -171,11 +143,7 @@ public class Inicio extends Fragment {
 
 
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
+
 
     /**
      * This interface must be implemented by activities that contain this

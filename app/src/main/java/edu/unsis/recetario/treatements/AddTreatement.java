@@ -2,6 +2,10 @@ package edu.unsis.recetario.treatements;
 
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,6 +25,7 @@ import java.util.Date;
 
 import edu.unsis.recetario.R;
 import edu.unsis.recetario.home.AdaptadorInicio;
+import edu.unsis.recetario.home.DatosInicio;
 import edu.unsis.recetario.home.Home;
 import edu.unsis.recetario.medicines.add_medicines;
 import edu.unsis.recetario.medicines.dao.MedicineDAOImpl;
@@ -180,5 +185,7 @@ public class AddTreatement extends AppCompatActivity {
             }
         }
     }
+
+
 
 }

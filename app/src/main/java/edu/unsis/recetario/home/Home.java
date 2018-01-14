@@ -30,6 +30,9 @@ import edu.unsis.recetario.notifications.model.Notificacion;
 import edu.unsis.recetario.patients.dao.PatientsDAOImpl;
 import edu.unsis.recetario.patients.model.Pacientes;
 import edu.unsis.recetario.treatements.AddTreatement;
+import edu.unsis.recetario.treatements.ListaTratamientos;
+import edu.unsis.recetario.treatements.dao.TratamientoDAOImpl;
+import edu.unsis.recetario.treatements.model.Tratamiento;
 import session.SessionObject;
 
 public class Home extends AppCompatActivity
@@ -54,7 +57,8 @@ public class Home extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         //Cargamos el fragmento Inicial, Menú item Hoy.
-        setInitialFragmet();
+        //setInitialFragmet();
+        setFragmet(new Inicio());
         //cargamos los datos del usuario,
         try{
             //primero obtenemos el id del paciente de la tabla cuentas
@@ -132,11 +136,38 @@ public class Home extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
-        switch (item.getItemId()){
+
+        /*int id = item.getItemId();
+        FragmentManager fragmentManager=getSupportFragmentManager();
+        Fragment fragment;
+        if (id == R.id.treatement) {
+            setFragmet(new ListaTratamientos());
+
+
+        }*/
+
+      switch (item.getItemId()){
             case R.id.treatement:
                 Log.d("createIntent","launch intent");
-                Intent intent = new Intent(Home.this, AddTreatement.class);
-                startActivity(intent);
+
+                TratamientoDAOImpl tratamientoDAO=new TratamientoDAOImpl(null);
+                Tratamiento tratamiento=new Tratamiento();
+
+                try {
+                    /**Obteniendo el total de medicamentos */
+                    int tot= tratamientoDAO.getAllTratamiento().size();
+                    if(tot!=0) {
+                        /**Si recorriendo la lista para recuperar los datos almacenados*/
+                        setFragmet(new ListaTratamientos());
+                    }else{
+                        Intent intent = new Intent(Home.this, AddTreatement.class);
+                        startActivity(intent);
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
                 Log.d("createIntent","launch intent");
                 break;
             case R.id.today:
@@ -149,6 +180,16 @@ public class Home extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void setFragmet(Fragment fragment){
+        if(fragment!=null){
+            FragmentTransaction ft=getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.appBody,fragment);
+            ft.commit();
+        }
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
     }
 
     public void setInitialFragmet(){
