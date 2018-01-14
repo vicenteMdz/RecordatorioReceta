@@ -47,9 +47,12 @@ public class ListMedicineAdapter extends RecyclerView.Adapter<ListMedicineAdapte
                 notifyItemRemoved(getAdapterPosition());
             } else if (v.getId() == itemMedicineName.getId()){ // evento onclick del textview
                 Log.d("itemSelected::: ", listMedicamentos.get(getAdapterPosition()).toString());
-                Intent intent = new Intent(v.getContext(), add_medicines.class);
-                intent.putExtra("medicamento",listMedicamentos.get(getAdapterPosition()));
-                v.getContext().startActivity(intent);
+                Intent intent = new Intent(v.getContext(), add_medicines.class);//creamos el nuevo intent
+                intent.putExtra("medicamento",listMedicamentos.get(getAdapterPosition()));//guardamos el medicamento para mostrarlo en la siguiente ventana
+                v.getContext().startActivity(intent);//lanzamos el activity
+                //borramos el activity de la lista
+                SessionObject.deleteMedicine(getAdapterPosition());
+                notifyItemRemoved(getAdapterPosition());
             }
         }
     }

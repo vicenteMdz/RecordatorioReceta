@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 import android.widget.Toast;
 
+import edu.unsis.recetario.notifications.NotificationToma;
 import edu.unsis.recetario.treatements.AddTreatement;
 
 /**
@@ -24,7 +25,7 @@ public class AlarmReceiver extends BroadcastReceiver {
                 .getSystemService(Context.NOTIFICATION_SERVICE);
         // Creamos el Intent que llamará a nuestra Activity
         Intent targetIntent = new Intent(context,
-                AddTreatement.class);
+                NotificationToma.class);
         PendingIntent contentIntent = PendingIntent.getActivity(context, 0,
                 targetIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 

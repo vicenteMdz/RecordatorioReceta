@@ -209,20 +209,20 @@ public class Medicamento implements Parcelable{
      */
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(idMedicamento);
-        dest.writeInt(idTratamiento);
-        dest.writeString(nombre);
-        dest.writeString(descripcion);
-        dest.writeFloat(numeroDosis);
-        dest.writeString(tipoDosis);
-        dest.writeInt(periodoToma);
-        dest.writeString(tipoPeriodoToma);
-        dest.writeInt(duracionToma);
-        dest.writeString(tipoDuracion);
-        dest.writeString(fechaInicio);
-        dest.writeString(horaInicio);
-        dest.writeString(swActivo);
-        dest.writeString(swFinalizado);
+        dest.writeInt(this.idMedicamento);
+        dest.writeInt(this.idTratamiento);
+        dest.writeString(this.nombre);
+        dest.writeString(this.descripcion);
+        dest.writeFloat(this.numeroDosis);
+        dest.writeString(this.tipoDosis);
+        dest.writeInt(this.periodoToma);
+        dest.writeString(this.tipoPeriodoToma);
+        dest.writeInt(this.duracionToma);
+        dest.writeString(this.tipoDuracion);
+        dest.writeString(this.fechaInicio);
+        dest.writeString(this.horaInicio);
+        dest.writeString(this.swActivo);
+        dest.writeString(this.swFinalizado);
     }
 
     /**
@@ -230,19 +230,19 @@ public class Medicamento implements Parcelable{
      * @param in Parcel con los datos a leer
      */
     private void readFromParcel(Parcel in) {
-        in.readInt();
-        in.readInt();
-        in.readString();
-        in.readString();
-        in.readFloat();
-        in.readString();
-        in.readInt();
-        in.readString();
-        in.readInt();
-        in.readString();
-        in.readString();
-        in.readString();
-        in.readString();
-        in.readString();
+        this.idMedicamento = in.readInt();
+        this.idTratamiento = in.readInt();
+        this.nombre = in.readString();
+        this.descripcion = in.readString();
+        this.numeroDosis = in.readFloat();
+        this.tipoDosis = in.readString();
+        this.periodoToma = in.readInt();
+        this.tipoPeriodoToma = in.readString();
+        this.duracionToma = in.readInt();
+        this.tipoDuracion = in.readString();
+        this.fechaInicio = in.readString();
+        this.horaInicio = in.readString();
+        this.swActivo = in.readString();
+        this.swFinalizado = in.readString();
     }
 }
