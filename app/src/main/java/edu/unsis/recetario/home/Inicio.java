@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,9 +15,15 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
+
 
 import edu.unsis.recetario.R;
+
+import edu.unsis.recetario.medicines.dao.MedicineDAOImpl;
+import edu.unsis.recetario.medicines.model.Medicamento;
+import edu.unsis.recetario.treatements.dao.TratamientoDAOImpl;
+import edu.unsis.recetario.treatements.model.Tratamiento;
+import session.SessionObject;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -51,6 +58,7 @@ public class Inicio extends Fragment {
      * @return A new instance of fragment Inicio.
      */
     // TODO: Rename and change types and number of parameters
+
     public static Inicio newInstance(String param1, String param2) {
         Inicio fragment = new Inicio();
         Bundle args = new Bundle();
@@ -75,23 +83,55 @@ public class Inicio extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view=inflater.inflate(R.layout.fragment_inicio, container, false);
-
-
         TextView nombePersona;
         TextView fecha;
-        String dt;
 
-        Date cal = (Date) Calendar.getInstance().getTime();
-        dt = cal.toLocaleString();
+        String nombrePac;
+        TratamientoDAOImpl tratamientoDAO=new TratamientoDAOImpl(null);
+        Tratamiento tratamiento=new Tratamiento();
+
+        MedicineDAOImpl medicinaDAO=new MedicineDAOImpl(null);
+        Medicamento medicamento=new Medicamento();
+        /**Declarando una lista en donde se guardaran los medicamentos del tratamiento*/
+        ArrayList<DatosInicio> list=new ArrayList<>();
+
+        /**Obteniendo la fecha actual para ver que medicamentos se tienen que mostrar segun el dia*/
+        Date dNow = new Date();
+        SimpleDateFormat nuevoformato = new SimpleDateFormat ("dd-MM-yyyy");
+
+        try {
+            /**Obteniendo el total de medicamentos */
+            int tot= medicinaDAO.getAllMedicine().size();
+            if(tot!=0) {
+                /**Si recorriendo la lista para recuperar los datos almacenados*/
+                for (int i = 0; i < tot; i++) {
+                    medicamento = medicinaDAO.getAllMedicine().get(i);
+                    list.add(new DatosInicio("", "Medicamento: " + medicamento.getNombre(), "Hora de inicio: " + medicamento.getHoraInicio(), "Dosis: " + String.valueOf(medicamento.getNumeroDosis())));
+                }
+            }else{
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        SessionObject sessionObject = SessionObject.getInstance();
+
+
+        nombrePac=sessionObject.getCurrentPacient().getNombre();
+
+
+
 
         nombePersona=(TextView)view.findViewById(R.id.txtnombrePersona);
-        nombePersona.setText("Octavio");
+        nombePersona.setText(nombrePac);
 
         fecha=(TextView)view.findViewById(R.id.txtFechaActual);
 
 
         //Obteniendo la fecha actual
-        Date dNow = new Date();
+
+        Log.d("Fecha actual",nuevoformato.format(dNow.getTime()));
         SimpleDateFormat diaN = new SimpleDateFormat ("dd");
         String diaNum = diaN.format(dNow.getTime());
 
@@ -104,13 +144,13 @@ public class Inicio extends Fragment {
         fecha.setText(dayOfTheWeek+" "+diaNum+" de "+mesA);
 
 
-        ArrayList<DatosInicio> list=new ArrayList<>();
+        /*ArrayList<DatosInicio> list=new ArrayList<>();
         list.add(new DatosInicio("","paracetamol","8pm","2 tabletas"));
 
         list.add(new DatosInicio("","paracetamol","12 am","media tableta"));
         list.add(new DatosInicio("","paracetamol"," 4 am","1 tableta"));
         list.add(new DatosInicio("","paracetamol"," 10 pm","muchas"));
-        list.add(new DatosInicio("","paracetamol"," 10 pm","muchas"));
+        list.add(new DatosInicio("","paracetamol"," 10 pm","muchas"));*/
 
         RecyclerView contendor=(RecyclerView) view.findViewById(R.id.contenedor);
         contendor.setHasFixedSize(true);

@@ -227,18 +227,6 @@ public class add_medicines extends AppCompatActivity implements OnClickListener{
                     builder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             if(edit){
-                                /*medicamento.setNombre(Nombre.getText().toString());
-                                medicamento.setDescripcion(Descripcion.getText().toString());
-                                medicamento.setNumeroDosis(Float.parseFloat(NumDosis.getText().toString()));
-                                medicamento.setTipoDosis(Dosis.getSelectedItem().toString());
-                                medicamento.setPeriodoToma(Integer.parseInt(numToma.getText().toString()));
-                                medicamento.setTipoPeriodoToma(Toma.getSelectedItem().toString());
-                                medicamento.setDuracionToma(Integer.parseInt(NumDuracion.getText().toString()));
-                                medicamento.setTipoDuracion(Duracion.getSelectedItem().toString());
-                                medicamento.setHoraInicio(Hora.getText().toString());
-                                medicamento.setFechaInicio(Fecha.getText().toString());
-                                medicamento.setSwActivo("A");
-                                medicamento.setSwFinalizado("N");*/
                                 SessionObject.getListMedicamentos().add(medicamento);
                             }
                             Intent intent = new Intent(add_medicines.this, AddTreatement.class);
