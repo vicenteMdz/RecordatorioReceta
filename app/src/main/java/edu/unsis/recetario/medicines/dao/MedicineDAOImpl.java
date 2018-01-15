@@ -64,6 +64,19 @@ public class MedicineDAOImpl extends MedicineDAO {
         }
     }
 
+    public void deleteMedicineByTratamiento(int idTratamiento) throws Exception {
+        try {
+            openWrite();
+            conditionWhere =MedicamentoContract.MedicamentoEntry.IDTRATAMIENTO + " = ?";
+            String[] selectionArgs = {""+idTratamiento};
+            database.delete(MedicamentoContract.MedicamentoEntry.TABLE_NAME, conditionWhere, selectionArgs);
+            database.close();
+        }catch (Exception e){
+            Log.d("ExceptionInsert", e.getCause().getMessage());
+            throw new Exception();
+        }
+    }
+
 
     public Medicamento getMedicineById(int idMedicine) throws Exception{
         String qryGetNotification = "SELECT " + MedicamentoContract.MedicamentoEntry.IDMEDICAMENTO+ ", " +

@@ -144,14 +144,6 @@ public class Inicio extends Fragment {
         fecha.setText(dayOfTheWeek+" "+diaNum+" de "+mesA);
 
 
-        /*ArrayList<DatosListaTratamientos> list=new ArrayList<>();
-        list.add(new DatosListaTratamientos("","paracetamol","8pm","2 tabletas"));
-
-        list.add(new DatosListaTratamientos("","paracetamol","12 am","media tableta"));
-        list.add(new DatosListaTratamientos("","paracetamol"," 4 am","1 tableta"));
-        list.add(new DatosListaTratamientos("","paracetamol"," 10 pm","muchas"));
-        list.add(new DatosListaTratamientos("","paracetamol"," 10 pm","muchas"));*/
-
         RecyclerView contendor=(RecyclerView) view.findViewById(R.id.contenedor);
         contendor.setHasFixedSize(true);
         LinearLayoutManager Layaut=new LinearLayoutManager(getContext());
