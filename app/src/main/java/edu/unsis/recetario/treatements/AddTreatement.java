@@ -67,17 +67,17 @@ public class AddTreatement extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.window_close);
 
-        edit = false;
 
-        //obtenemos la instancia del medicamento, para la edición
+        //obtenemos la instancia del tratamiento, para la edición
         edit = false;
         try {
             tratamientoEditar = getIntent().getExtras().getInt("TratamientoEditar");
-            Log.d("add", "no viene vacioy el id es  " + tratamientoEditar);
+            Log.d("editartratamiento", "id:::" + tratamientoEditar);
             loadData(tratamientoEditar);
             edit = true;
         } catch (Exception e) {
-            Log.d("add", e.toString());
+            edit = true;
+            Log.d("NuevoTratamiento", e.toString());
         }
 
         final Tratamiento tratamiento = SessionObject.getTratamiento();

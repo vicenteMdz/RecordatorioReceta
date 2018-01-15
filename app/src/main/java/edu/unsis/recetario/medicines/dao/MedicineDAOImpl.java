@@ -176,6 +176,54 @@ public class MedicineDAOImpl extends MedicineDAO {
         return listaMedicine;
     }
 
+    public List<Medicamento> getMedicinesByTratamiento(int idTratamiento)  throws Exception{
+        ArrayList<Medicamento> listaMedicine = new ArrayList<Medicamento>();
+        String qryGetMedicine = "SELECT " + MedicamentoContract.MedicamentoEntry.IDMEDICAMENTO + ", " +
+                MedicamentoContract.MedicamentoEntry.IDMEDICAMENTO +", " +
+                MedicamentoContract.MedicamentoEntry.IDTRATAMIENTO +", " +
+                MedicamentoContract.MedicamentoEntry.NOMBRE +", " +
+                MedicamentoContract.MedicamentoEntry.DESCRIPCION +", " +
+                MedicamentoContract.MedicamentoEntry.NUMERODOSIS +", " +
+                MedicamentoContract.MedicamentoEntry.TIPODOSIS +", " +
+                MedicamentoContract.MedicamentoEntry.PERIODOTOMA +", " +
+                MedicamentoContract.MedicamentoEntry.TIPOPERIODOTOMA +", " +
+                MedicamentoContract.MedicamentoEntry.DURACIONTOMA +", " +
+                MedicamentoContract.MedicamentoEntry.TIPODURACION +", " +
+                MedicamentoContract.MedicamentoEntry.FECHAINICIO+", " +
+                MedicamentoContract.MedicamentoEntry.HORAINICIO +", " +
+                MedicamentoContract.MedicamentoEntry.SWACTIVO +", " +
+                MedicamentoContract.MedicamentoEntry.SWFINALIZADO +" " +
+                "FROM " + MedicamentoContract.MedicamentoEntry.TABLE_NAME +
+                " WHERE " + MedicamentoContract.MedicamentoEntry.IDTRATAMIENTO + " = " + idTratamiento;
+        Log.d("query", qryGetMedicine);
+        try {
+            openRead();
+            Cursor cursor = database.rawQuery(qryGetMedicine, null);
+            while(cursor.moveToNext()){
+                Medicamento medicine = new Medicamento();
+                medicine.setIdTratamiento(cursor.getInt(1));
+                medicine.setNombre(cursor.getString(2));
+                medicine.setDescripcion(cursor.getString(3));
+                medicine.setNumeroDosis(cursor.getInt(4));
+                medicine.setTipoDosis(cursor.getString(5));
+                medicine.setPeriodoToma(cursor.getInt(6));
+                medicine.setDuracionToma(cursor.getInt(7));
+                medicine.setTipoDuracion(cursor.getString(8));
+                medicine.setTipoPeriodoToma(cursor.getString(9));
+                medicine.setFechaInicio(cursor.getString(10));
+                medicine.setHoraInicio(cursor.getString(11));
+                medicine.setSwActivo(cursor.getString(12));
+                medicine.setSwFinalizado(cursor.getString(13));
+                listaMedicine.add(medicine);
+            }
+            database.close();
+        }catch (Exception e){
+            Log.d("ExceptionInsert", e.getCause().getMessage());
+            throw new Exception();
+        }
+        return listaMedicine;
+    }
+
     public int getIdMedicamentoInsertado() throws Exception{
         String qryGetMedicamentoId = "SELECT MAX("+ MedicamentoContract.MedicamentoEntry.IDMEDICAMENTO+")" +
 
