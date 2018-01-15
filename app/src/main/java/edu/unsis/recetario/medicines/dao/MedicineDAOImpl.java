@@ -104,19 +104,20 @@ public class MedicineDAOImpl extends MedicineDAO {
             Cursor cursor = database.rawQuery(qryGetNotification, null);
             if(cursor.moveToNext()){
                 Medicamento medicine = new Medicamento();
-                medicine.setIdTratamiento(cursor.getInt(1));
-                medicine.setNombre(cursor.getString(2));
-                medicine.setDescripcion(cursor.getString(3));
-                medicine.setNumeroDosis(cursor.getInt(4));
-                medicine.setTipoDosis(cursor.getString(5));
-                medicine.setPeriodoToma(cursor.getInt(6));
-                medicine.setDuracionToma(cursor.getInt(7));
-                medicine.setTipoDuracion(cursor.getString(8));
-                medicine.setTipoPeriodoToma(cursor.getString(9));
-                medicine.setFechaInicio(cursor.getString(10));
-                medicine.setHoraInicio(cursor.getString(11));
-                medicine.setSwActivo(cursor.getString(12));
-                medicine.setSwFinalizado(cursor.getString(13));
+                medicine.setIdMedicamento(cursor.getInt(1));
+                medicine.setIdTratamiento(cursor.getInt(2));
+                medicine.setNombre(cursor.getString(3));
+                medicine.setDescripcion(cursor.getString(4));
+                medicine.setNumeroDosis(cursor.getInt(5));
+                medicine.setTipoDosis(cursor.getString(6));
+                medicine.setPeriodoToma(cursor.getInt(7));
+                medicine.setDuracionToma(cursor.getInt(9));
+                medicine.setTipoDuracion(cursor.getString(10));
+                medicine.setTipoPeriodoToma(cursor.getString(8));
+                medicine.setFechaInicio(cursor.getString(11));
+                medicine.setHoraInicio(cursor.getString(12));
+                medicine.setSwActivo(cursor.getString(13));
+                medicine.setSwFinalizado(cursor.getString(14));
                 database.close();
                 return medicine;
             }else{
@@ -153,19 +154,20 @@ public class MedicineDAOImpl extends MedicineDAO {
             Cursor cursor = database.rawQuery(qryGetMedicine, null);
             while(cursor.moveToNext()){
                 Medicamento medicine = new Medicamento();
-                medicine.setIdTratamiento(cursor.getInt(1));
-                medicine.setNombre(cursor.getString(2));
-                medicine.setDescripcion(cursor.getString(3));
-                medicine.setNumeroDosis(cursor.getInt(4));
-                medicine.setTipoDosis(cursor.getString(5));
-                medicine.setPeriodoToma(cursor.getInt(6));
-                medicine.setDuracionToma(cursor.getInt(7));
-                medicine.setTipoDuracion(cursor.getString(8));
-                medicine.setTipoPeriodoToma(cursor.getString(9));
-                medicine.setFechaInicio(cursor.getString(10));
-                medicine.setHoraInicio(cursor.getString(11));
-                medicine.setSwActivo(cursor.getString(12));
-                medicine.setSwFinalizado(cursor.getString(13));
+                medicine.setIdMedicamento(cursor.getInt(1));
+                medicine.setIdTratamiento(cursor.getInt(2));
+                medicine.setNombre(cursor.getString(3));
+                medicine.setDescripcion(cursor.getString(4));
+                medicine.setNumeroDosis(cursor.getInt(5));
+                medicine.setTipoDosis(cursor.getString(6));
+                medicine.setPeriodoToma(cursor.getInt(7));
+                medicine.setDuracionToma(cursor.getInt(9));
+                medicine.setTipoDuracion(cursor.getString(10));
+                medicine.setTipoPeriodoToma(cursor.getString(8));
+                medicine.setFechaInicio(cursor.getString(11));
+                medicine.setHoraInicio(cursor.getString(12));
+                medicine.setSwActivo(cursor.getString(13));
+                medicine.setSwFinalizado(cursor.getString(14));
                 listaMedicine.add(medicine);
             }
             database.close();
@@ -176,7 +178,7 @@ public class MedicineDAOImpl extends MedicineDAO {
         return listaMedicine;
     }
 
-    public List<Medicamento> getMedicinesByTratamiento(int idTratamiento)  throws Exception{
+    public ArrayList<Medicamento> getMedicinesByTratamiento(int idTratamiento)  throws Exception{
         ArrayList<Medicamento> listaMedicine = new ArrayList<Medicamento>();
         String qryGetMedicine = "SELECT " + MedicamentoContract.MedicamentoEntry.IDMEDICAMENTO + ", " +
                 MedicamentoContract.MedicamentoEntry.IDMEDICAMENTO +", " +
@@ -201,19 +203,20 @@ public class MedicineDAOImpl extends MedicineDAO {
             Cursor cursor = database.rawQuery(qryGetMedicine, null);
             while(cursor.moveToNext()){
                 Medicamento medicine = new Medicamento();
-                medicine.setIdTratamiento(cursor.getInt(1));
-                medicine.setNombre(cursor.getString(2));
-                medicine.setDescripcion(cursor.getString(3));
-                medicine.setNumeroDosis(cursor.getInt(4));
-                medicine.setTipoDosis(cursor.getString(5));
-                medicine.setPeriodoToma(cursor.getInt(6));
-                medicine.setDuracionToma(cursor.getInt(7));
-                medicine.setTipoDuracion(cursor.getString(8));
-                medicine.setTipoPeriodoToma(cursor.getString(9));
-                medicine.setFechaInicio(cursor.getString(10));
-                medicine.setHoraInicio(cursor.getString(11));
-                medicine.setSwActivo(cursor.getString(12));
-                medicine.setSwFinalizado(cursor.getString(13));
+                medicine.setIdMedicamento(cursor.getInt(1));
+                medicine.setIdTratamiento(cursor.getInt(2));
+                medicine.setNombre(cursor.getString(3));
+                medicine.setDescripcion(cursor.getString(4));
+                medicine.setNumeroDosis(cursor.getInt(5));
+                medicine.setTipoDosis(cursor.getString(6));
+                medicine.setPeriodoToma(cursor.getInt(7));
+                medicine.setDuracionToma(cursor.getInt(9));
+                medicine.setTipoDuracion(cursor.getString(10));
+                medicine.setTipoPeriodoToma(cursor.getString(8));
+                medicine.setFechaInicio(cursor.getString(11));
+                medicine.setHoraInicio(cursor.getString(12));
+                medicine.setSwActivo(cursor.getString(13));
+                medicine.setSwFinalizado(cursor.getString(14));
                 listaMedicine.add(medicine);
             }
             database.close();
