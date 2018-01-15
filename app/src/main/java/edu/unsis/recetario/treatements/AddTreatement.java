@@ -20,10 +20,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 
 import edu.unsis.recetario.R;
@@ -39,12 +41,18 @@ import edu.unsis.recetario.treatements.dao.TratamientoDAOImpl;
 import edu.unsis.recetario.treatements.model.Tratamiento;
 import session.SessionObject;
 
+import static edu.unsis.recetario.R.id.edtHora;
+
 public class AddTreatement extends AppCompatActivity {
 
     public View view;
     EditText nombreTratamiento;
     EditText descripcionTratamiento;
     ArrayList<Medicamento> medicamentos;
+
+    private boolean edit;
+    private int tratamientoEditar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,23 +67,36 @@ public class AddTreatement extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.window_close);
 
+        edit = false;
+
+        //obtenemos la instancia del medicamento, para la edición
+        edit = false;
+        try {
+            tratamientoEditar = getIntent().getExtras().getInt("TratamientoEditar");
+            Log.d("add", "no viene vacioy el id es  " + tratamientoEditar);
+            loadData(tratamientoEditar);
+            edit = true;
+        } catch (Exception e) {
+            Log.d("add", e.toString());
+        }
+
         final Tratamiento tratamiento = SessionObject.getTratamiento();
         nombreTratamiento = (EditText) findViewById(R.id.txtNombreTratamiento);
         descripcionTratamiento = (EditText) findViewById(R.id.descripcionTratamiento);
-        Log.d("tratamiento",tratamiento.toString());
+        Log.d("tratamiento", tratamiento.toString());
         nombreTratamiento.setText(tratamiento.getNombreTratamiento());
         descripcionTratamiento.setText(tratamiento.getDescripcion());
 
 
         medicamentos = SessionObject.getListMedicamentos();
-        Log.d("listCount", ""+medicamentos.size());
-        for(Medicamento m : medicamentos){
-            Log.d("medicamento",m.toString());
+        Log.d("listCount", "" + medicamentos.size());
+        for (Medicamento m : medicamentos) {
+            Log.d("medicamento", m.toString());
         }
 
-        RecyclerView contendor=(RecyclerView) findViewById(R.id.RecicleViewShowMedicines);
+        RecyclerView contendor = (RecyclerView) findViewById(R.id.RecicleViewShowMedicines);
         contendor.setHasFixedSize(true);
-        LinearLayoutManager layout=new LinearLayoutManager(this);
+        LinearLayoutManager layout = new LinearLayoutManager(this);
         layout.setOrientation(LinearLayoutManager.VERTICAL);
         contendor.setLayoutManager(layout);
         ListMedicineAdapter adapter = new ListMedicineAdapter(medicamentos);
@@ -93,6 +114,12 @@ public class AddTreatement extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+    }
+
+
+    public void loadData(int idTratamiento) {
+
 
     }
 
@@ -116,17 +143,17 @@ public class AddTreatement extends AppCompatActivity {
                 boolean cancel = false;
                 //Variable para contener el campo a ser enfocado
                 View focusView = null;
-                int cont =0;
+                int cont = 0;
                 if (!TextUtils.isEmpty(nombreTratamiento.getText().toString().trim())) {
-                    cont=cont+1;
+                    cont = cont + 1;
                 }
                 if (!TextUtils.isEmpty(descripcionTratamiento.getText().toString().trim())) {
-                    cont=cont+1;
+                    cont = cont + 1;
                 }
-                if (medicamentos.size()>0){
-                    cont=cont+1;
+                if (medicamentos.size() > 0) {
+                    cont = cont + 1;
                 }
-                if (cont>0) {
+                if (cont > 0) {
 
                     //Crea el diálogo
                     AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -164,7 +191,7 @@ public class AddTreatement extends AppCompatActivity {
         }
     }
 
-    public void guardaTratamientos(){
+    public void guardaTratamientos() {
         nombreTratamiento = (EditText) findViewById(R.id.txtNombreTratamiento);
         descripcionTratamiento = (EditText) findViewById(R.id.descripcionTratamiento);
         //validamos los campos
@@ -189,22 +216,22 @@ public class AddTreatement extends AppCompatActivity {
             //Enfocar el Campo del Error
             focusView.requestFocus();
         } else {
-            Log.d("paciente",SessionObject.getCurrentPacient().toString());
-            if(SessionObject.getInstance().getCurrentPacient() != null){
+            Log.d("paciente", SessionObject.getCurrentPacient().toString());
+            if (SessionObject.getInstance().getCurrentPacient() != null) {
                 //declaramos interfaces java para persistir tratamientos y medicamentos en java
                 TratamientoDAOImpl tratamientoDAO = new TratamientoDAOImpl(this);
                 MedicineDAOImpl medicineDAO = new MedicineDAOImpl(this);
 
                 ArrayList<Medicamento> medicamentos = SessionObject.getListMedicamentos();
-                Log.d("Tamlistamedicamentos", ""+medicamentos.size());
-                if(medicamentos.size() == 0){//guardamos solo si hay medicamentos asociados al tratamiento
+                Log.d("Tamlistamedicamentos", "" + medicamentos.size());
+                if (medicamentos.size() == 0) {//guardamos solo si hay medicamentos asociados al tratamiento
                     Toast.makeText(this, "Añade medicamentos al tratamiento", Toast.LENGTH_LONG).show();
                     return;
                 }
 
                 //Obteniendo la fecha actual
                 Date dNow = new Date();
-                SimpleDateFormat diaN = new SimpleDateFormat ("dd/MM/yyyy");
+                SimpleDateFormat diaN = new SimpleDateFormat("dd/MM/yyyy");
                 String date = diaN.format(dNow.getTime());
                 Tratamiento tratamiento = new Tratamiento();
                 tratamiento.setDescripcion(descripcionTratamiento.getText().toString());
@@ -213,14 +240,14 @@ public class AddTreatement extends AppCompatActivity {
                 tratamiento.setNombreTratamiento(nombreTratamiento.getText().toString());
                 tratamiento.setSwActivo("A");
                 tratamiento.setSwFinalizado("N");
-                try{
+                try {
                     //persistir el medicamento en la base de datos
                     tratamientoDAO.insertTratamiento(tratamiento);
                     tratamiento.setIdTratamiento(tratamientoDAO.getIdTratamientoInsertado());
                     //reccorrer la lista de medicamentos e insertar en la tabla de medicamentos
 
                     String alarmId;
-                    for(Medicamento m : medicamentos){
+                    for (Medicamento m : medicamentos) {
                         m.setIdTratamiento(tratamiento.getIdTratamiento());
                         //persistimos cada medicamento en la base de datos
                         medicineDAO.insertMedicines(m);
@@ -231,14 +258,14 @@ public class AddTreatement extends AppCompatActivity {
 
                         Intent alarmIntent = new Intent(AddTreatement.this, AlarmReceiver.class);
                         //agregar un id al intent para despues con ese id eliminar la notificacion
-                        alarmId = tratamiento.getNombreTratamiento().substring(0,2) +
-                                "_" + m.getNombre().substring(0,2) + "_" + m.getHoraInicio();
-                        alarmIntent.putExtra("alarmaId",alarmId);
+                        alarmId = tratamiento.getNombreTratamiento().substring(0, 2) +
+                                "_" + m.getNombre().substring(0, 2) + "_" + m.getHoraInicio();
+                        alarmIntent.putExtra("alarmaId", alarmId);
                         PendingIntent pendingIntent = PendingIntent.getBroadcast(AddTreatement.this, 0, alarmIntent, 0);
                         SchedulingAlarm schedulingAlarm = new SchedulingAlarm(getBaseContext());
-                        try{
+                        try {
                             schedulingAlarm.createAlarm(m, pendingIntent, alarmId);
-                        }catch(Exception e){
+                        } catch (Exception e) {
                             Log.d("errorSchedulingTask", e.getCause().getMessage());
                             e.printStackTrace();
                         }
@@ -247,15 +274,14 @@ public class AddTreatement extends AppCompatActivity {
                     SessionObject.setTratamiento(null);
                     Intent intent = new Intent(AddTreatement.this, Home.class);
                     startActivity(intent);
-                }catch(Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
-            }else{
+            } else {
                 Toast.makeText(this, "No hay usuario en session", Toast.LENGTH_SHORT);
             }
         }
     }
-
 
 
 }

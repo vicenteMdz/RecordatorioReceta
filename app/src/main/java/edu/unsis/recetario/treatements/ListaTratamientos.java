@@ -6,9 +6,11 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,9 +20,11 @@ import edu.unsis.recetario.R;
 import edu.unsis.recetario.home.DatosInicio;
 import edu.unsis.recetario.home.Home;
 import edu.unsis.recetario.medicines.add_medicines;
+import edu.unsis.recetario.medicines.model.Medicamento;
 import edu.unsis.recetario.treatements.dao.TratamientoDAOImpl;
 import edu.unsis.recetario.treatements.model.Tratamiento;
 import session.SessionObject;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -35,12 +39,17 @@ public class ListaTratamientos extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    //variable local que nos ayuda a verificar si se esta editando un medicamento o añadiendo uno nuevo
+    private boolean edit;
+    private Tratamiento tratamientoExistete;
+    private int idtratamiento;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
     View view;
     private OnFragmentInteractionListener mListener;
+
     public ListaTratamientos() {
         // Required empty public constructor
     }
@@ -69,35 +78,20 @@ public class ListaTratamientos extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+            // Bundle args = getArguments();
+            //idtratamiento = args.getInt("idTratamiento",0);
         }
-
-        /*view.findViewById(R.id.btnAgregarTratamiento).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(null, AddTreatement.class);
-                startActivity(intent);
-            }
-        });*/
-        /*Button agrgarTratamiento = (Button) view.findViewById(R.id.button);
-        agrgarTratamiento.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                    Toast.makeText(this, "Algunos campos estan vacíos ", Toast.LENGTH_SHORT).show();
-
-            }
-        });*/
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view=inflater.inflate(R.layout.fragment_lista_tratamientos, container, false);
-        TratamientoDAOImpl tratamientoDAO=new TratamientoDAOImpl(null);
-        Tratamiento tratamiento=new Tratamiento();
+        view = inflater.inflate(R.layout.fragment_lista_tratamientos, container, false);
+        TratamientoDAOImpl tratamientoDAO = new TratamientoDAOImpl(null);
+        Tratamiento tratamiento = new Tratamiento();
         /**Declarando una lista en donde se guardaran los medicamentos del tratamiento*/
-        List<Tratamiento> list= SessionObject.getListTratamientos();
+        List<Tratamiento> list = SessionObject.getListTratamientos();
         try {
             /**Obteniendo el total de medicamentos */
             list = tratamientoDAO.getAllTratamiento();
@@ -106,9 +100,9 @@ public class ListaTratamientos extends Fragment {
             e.printStackTrace();
         }
 
-        RecyclerView contendor=(RecyclerView) view.findViewById(R.id.contenedorTratamiento);
+        RecyclerView contendor = (RecyclerView) view.findViewById(R.id.contenedorTratamiento);
         contendor.setHasFixedSize(true);
-        LinearLayoutManager Layaut=new LinearLayoutManager(getContext());
+        LinearLayoutManager Layaut = new LinearLayoutManager(getContext());
         Layaut.setOrientation(LinearLayoutManager.VERTICAL);
         contendor.setAdapter(new AdaptadorListaTratamiento(list));
         contendor.setLayoutManager(Layaut);
@@ -122,8 +116,6 @@ public class ListaTratamientos extends Fragment {
                 startActivity(intent);
             }
         });
-
-
         return view;
     }
 
@@ -135,19 +127,6 @@ public class ListaTratamientos extends Fragment {
     }
 
 
-
-
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);

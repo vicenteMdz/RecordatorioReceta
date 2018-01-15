@@ -19,10 +19,10 @@ import edu.unsis.recetario.treatements.model.Tratamiento;
 
 public class AdaptadorListaTratamiento extends RecyclerView.Adapter<ViewHolderListaTratamiento> {
 
-    List<Tratamiento> listaObajeto;
+    List<Tratamiento> listaTratamiento;
 
-    public AdaptadorListaTratamiento(List<Tratamiento> listaObajeto) {
-        this.listaObajeto = listaObajeto;
+    public AdaptadorListaTratamiento(List<Tratamiento> listaTratamiento) {
+        this.listaTratamiento = listaTratamiento;
     }
 
 
@@ -34,12 +34,12 @@ public class AdaptadorListaTratamiento extends RecyclerView.Adapter<ViewHolderLi
 
     @Override
     public void onBindViewHolder(ViewHolderListaTratamiento holder, int position) {
-        holder.nombeTratamiento.setText(listaObajeto.get(position).getNombreTratamiento());
+        holder.nombeTratamiento.setText(listaTratamiento.get(position).getNombreTratamiento());
     }
 
     @Override
     public int getItemCount() {
-        return listaObajeto.size();
+        return listaTratamiento.size();
     }
 
 

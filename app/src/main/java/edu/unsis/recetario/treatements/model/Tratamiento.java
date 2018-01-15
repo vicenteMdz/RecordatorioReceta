@@ -2,13 +2,16 @@ package edu.unsis.recetario.treatements.model;
 
 import android.content.ContentValues;
 
+import java.util.ArrayList;
+import java.util.stream.Stream;
+
 import edu.unsis.recetario.notifications.dao.NotificacionContract;
 import edu.unsis.recetario.treatements.dao.TratamientoContract;
 
 /**
  * Created by Meltsan on 25/11/17.
  */
-public class Tratamiento {
+public class Tratamiento extends ArrayList<Tratamiento> {
 
     private int idTratamiento;
     private int idPaciente;
@@ -40,7 +43,9 @@ public class Tratamiento {
         return nombreTratamiento;
     }
 
-    public void setNombreTratamiento(String nombreTratamiento) { this.nombreTratamiento = nombreTratamiento; }
+    public void setNombreTratamiento(String nombreTratamiento) {
+        this.nombreTratamiento = nombreTratamiento;
+    }
 
     public String getDescripcion() {
         return descripcion;
@@ -75,25 +80,26 @@ public class Tratamiento {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return "idTratamiento: " + this.idTratamiento +
                 "idPaciente: " + this.idPaciente +
                 "nombre: " + this.nombreTratamiento +
                 "descripcion: " + this.descripcion +
                 "fechaAlta: " + this.fechaAlta +
                 "swActivo: " + this.swActivo +
-                "swFinalizado: " + this.swFinalizado ;
+                "swFinalizado: " + this.swFinalizado;
     }
 
-    public ContentValues getContentValues(){
+    public ContentValues getContentValues() {
         ContentValues contentValues = new ContentValues();
         contentValues.put(TratamientoContract.TratamientoEntry.ID_PACIENTE, this.idPaciente);
-        contentValues.put(TratamientoContract.TratamientoEntry.NOMBRE_TRATAMIENTO,this.nombreTratamiento);
-        contentValues.put(TratamientoContract.TratamientoEntry.DESCRIPCION,this.descripcion);
-        contentValues.put(TratamientoContract.TratamientoEntry.FECHA_ALTA,this.fechaAlta);
-        contentValues.put(TratamientoContract.TratamientoEntry.SW_ACTIVO,this.swActivo);
-        contentValues.put(TratamientoContract.TratamientoEntry.SW_FINALIZADO,this.swFinalizado);
+        contentValues.put(TratamientoContract.TratamientoEntry.NOMBRE_TRATAMIENTO, this.nombreTratamiento);
+        contentValues.put(TratamientoContract.TratamientoEntry.DESCRIPCION, this.descripcion);
+        contentValues.put(TratamientoContract.TratamientoEntry.FECHA_ALTA, this.fechaAlta);
+        contentValues.put(TratamientoContract.TratamientoEntry.SW_ACTIVO, this.swActivo);
+        contentValues.put(TratamientoContract.TratamientoEntry.SW_FINALIZADO, this.swFinalizado);
         return contentValues;
     }
+
 }
 

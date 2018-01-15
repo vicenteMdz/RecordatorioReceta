@@ -87,13 +87,14 @@ public class TratamientoDAOImpl extends  TratamientoDAO {
     }
 
     public Tratamiento getTratamientoById(int idTratamiento) throws Exception{
-        String qryGetTratamiento = "SELECT " + TratamientoContract.TratamientoEntry.ID_TRATAMIENTO + ", " +
+        String qryGetTratamiento = "SELECT "
+                + TratamientoContract.TratamientoEntry.ID_TRATAMIENTO + ", " +
                 TratamientoContract.TratamientoEntry.ID_PACIENTE+ ", " +
                 TratamientoContract.TratamientoEntry.NOMBRE_TRATAMIENTO + ", " +
                 TratamientoContract.TratamientoEntry.DESCRIPCION+ ", " +
                 TratamientoContract.TratamientoEntry.FECHA_ALTA + ", " +
                 TratamientoContract.TratamientoEntry.SW_ACTIVO+ ", " +
-                TratamientoContract.TratamientoEntry.SW_FINALIZADO+ ", " +
+                TratamientoContract.TratamientoEntry.SW_FINALIZADO+ " " +
                 "FROM " + TratamientoContract.TratamientoEntry.TABLE_NAME + " " +
                 "WHERE " + TratamientoContract.TratamientoEntry.ID_TRATAMIENTO + " = " +
                 idTratamiento;
@@ -102,6 +103,7 @@ public class TratamientoDAOImpl extends  TratamientoDAO {
             openRead();
             Cursor cursor = database.rawQuery(qryGetTratamiento, null);
             if(cursor.moveToNext()){
+                Log.d("query", "Entro rn el if");
                 Tratamiento tratamiento = new Tratamiento();
                 tratamiento.setIdTratamiento(cursor.getInt(0));
                 tratamiento.setIdPaciente(cursor.getInt(1));
@@ -117,14 +119,16 @@ public class TratamientoDAOImpl extends  TratamientoDAO {
                 return null;
             }
         }catch (Exception e){
-            Log.d("ExceptionInsert", e.getCause().getMessage());
+           // Log.d("ExceptioID", e.getCause().getMessage());
+            Log.d("Exception select por ID", e.toString());
             throw new Exception();
         }
     }
 
     public List<Tratamiento> getAllTratamiento()  throws Exception{
         ArrayList<Tratamiento> listaTratamiento = new ArrayList<Tratamiento>();
-        String qryGetTratamiento = "SELECT " + TratamientoContract.TratamientoEntry.ID_TRATAMIENTO + ", " +
+        String qryGetTratamiento = "SELECT "
+                + TratamientoContract.TratamientoEntry.ID_TRATAMIENTO + ", " +
                 TratamientoContract.TratamientoEntry.ID_PACIENTE+ ", " +
                 TratamientoContract.TratamientoEntry.NOMBRE_TRATAMIENTO + ", " +
                 TratamientoContract.TratamientoEntry.DESCRIPCION+ ", " +
