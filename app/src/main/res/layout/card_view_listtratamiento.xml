@@ -24,14 +24,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
-
-
-
                 <TextView
                     android:id="@+id/txtNombreTratamiento"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
                     android:text="nombre medicamento"
+
                     android:layout_weight="1"
                     android:textColor="@color/colorComplement"
                     android:layout_centerVertical="true"
@@ -44,8 +43,6 @@
                     android:src="@drawable/delete"
                     android:layout_gravity="left"
                     android:id="@+id/deleteMedicine" />
-
-
             </LinearLayout>
         </FrameLayout>
     </LinearLayout>
