@@ -51,7 +51,8 @@ public class AddTreatement extends AppCompatActivity {
     ArrayList<Medicamento> medicamentos;
 
     private boolean edit;
-    private int tratamientoEditar;
+    private int idTratamientoEditar;
+    private Tratamiento tratamiento;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,20 +68,24 @@ public class AddTreatement extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.window_close);
 
+        tratamiento = SessionObject.getTratamiento();
 
         //obtenemos la instancia del tratamiento, para la edición
         edit = false;
         try {
-            tratamientoEditar = getIntent().getExtras().getInt("TratamientoEditar");
-            Log.d("editartratamiento", "id:::" + tratamientoEditar);
-            loadData(tratamientoEditar);
+            idTratamientoEditar = getIntent().getExtras().getInt("TratamientoEditar");
+            Log.d("editartratamiento", "id:::" + idTratamientoEditar);
+            TratamientoDAOImpl tratamientoDAO = new TratamientoDAOImpl(this);
+            MedicineDAOImpl medicineDAO = new MedicineDAOImpl(this);
+            tratamiento = tratamientoDAO.getTratamientoById(idTratamientoEditar);
+            SessionObject.setTratamiento(tratamiento);
+            SessionObject.setMedicamentos(medicineDAO.getMedicinesByTratamiento(idTratamientoEditar));
             edit = true;
         } catch (Exception e) {
-            edit = true;
-            Log.d("NuevoTratamiento", e.toString());
+            edit = false;
+            Log.d("NuevoTratamiento", "***** se agregará un nuevo tratamiento");
         }
-
-        final Tratamiento tratamiento = SessionObject.getTratamiento();
+        tratamiento = SessionObject.getTratamiento();
         nombreTratamiento = (EditText) findViewById(R.id.txtNombreTratamiento);
         descripcionTratamiento = (EditText) findViewById(R.id.descripcionTratamiento);
         Log.d("tratamiento", tratamiento.toString());
@@ -114,12 +119,6 @@ public class AddTreatement extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-    }
-
-
-    public void loadData(int idTratamiento) {
-
 
     }
 
