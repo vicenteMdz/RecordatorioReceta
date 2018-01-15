@@ -62,7 +62,7 @@ public class ViewHolderListaTratamiento extends RecyclerView.ViewHolder implemen
         } else if (v.getId() == nombeTratamiento.getId()) {
             Log.d("viewHolder", "Posicion " + idTratamiento);
 
-            Log.d("itemSelected TratamientoOOOOOOOOOOS::: ", "id" + idTratamiento);
+            Log.d("itemSelected Tratamiento::: ", "id" + idTratamiento);
 
             Intent intent = new Intent(v.getContext(), AddTreatement.class);//creamos el nuevo intent
             intent.putExtra("TratamientoEditar", idTratamiento);//guardamos el tratamiento para mostrarlo en la siguiente ventana
