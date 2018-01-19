@@ -166,6 +166,7 @@ public class Home extends AppCompatActivity
                     if(tot!=0) {
                         /**Si recorriendo la lista para recuperar los datos almacenados*/
                         setFragmet(new ListaTratamientos());
+                        getSupportActionBar().setTitle("Tratamientos");
                     }else{
                         Intent intent = new Intent(Home.this, AddTreatement.class);
                         startActivity(intent);

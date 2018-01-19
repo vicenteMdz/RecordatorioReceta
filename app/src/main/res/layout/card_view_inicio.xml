@@ -26,6 +26,7 @@
                 android:id="@+id/txtNombreMed"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textSize="18dp"
                 android:text="uno" />
 
             <TextView
@@ -43,15 +44,18 @@
 
             <TextView
                 android:id="@+id/txtDosis"
-                android:layout_width="250dp"
-                android:layout_height="wrap_content" />
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:textSize="18dp"/>
 
             <TextView
                 android:id="@+id/txtHorario"
-                android:layout_width="192dp"
+                android:layout_width="120dp"
+                android:layout_marginRight="20dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="left"
-                android:text="dos" />
+                android:layout_gravity="end"
+                android:text="dos"
+                android:textSize="18dp"/>
         </LinearLayout>
 
         <LinearLayout
