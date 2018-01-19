@@ -106,7 +106,7 @@ public class Inicio extends Fragment {
                 /**Si recorriendo la lista para recuperar los datos almacenados*/
                 for (int i = 0; i < tot; i++) {
                     medicamento = medicinaDAO.getAllMedicine().get(i);
-                    list.add(new DatosInicio("", "Medicamento: " + medicamento.getNombre(), "Hora de inicio: " + medicamento.getHoraInicio(), "Dosis: " + String.valueOf(medicamento.getNumeroDosis())));
+                    list.add(new DatosInicio("", "Medicamento: " + medicamento.getNombre(), " " + medicamento.getHoraInicio(), "Dosis: " + String.valueOf(medicamento.getNumeroDosis())));
                 }
             }else{
 

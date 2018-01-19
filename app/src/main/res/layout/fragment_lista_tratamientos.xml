@@ -1,80 +1,39 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context="edu.unsis.recetario.treatements.ListaTratamientos">
 
-    <!-- TODO: Update blank fragment layout -->
-    <ScrollView
-        android:id="@+id/scrollView"
+    <android.support.design.widget.AppBarLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/contenedorTratamiento"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/Blanco"
+        android:weightSum="3" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/btnAgregarTratamiento"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="26dp"
+        app:srcCompat="@android:drawable/ic_input_add" />
 
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/headerActivityAddTreatement">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:weightSum="3">
-
-            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginBottom="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-
-                android:layout_marginTop="50dp"
-                android:layout_weight="10.20"
-                card_view:cardCornerRadius="4dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp"
-                    android:weightSum="1">
-
-
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/contenedorTratamiento"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@color/Blanco"
-                        android:weightSum="3" />
-
-
-
-                </LinearLayout>
-
-            </android.support.v7.widget.CardView>
-            <Button
-                android:id="@+id/btnAgregarTratamiento"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_margin="16dp"
-                android:layout_gravity="bottom|end"
-
-
-                android:background="@drawable/boton_redondo"
-                android:text="+"
-                android:textColor="#ECEFF1"
-                android:textSize="40dp"
-
-                android:textStyle="bold"
-
-                />
-        </LinearLayout>
-
-
-
-    </ScrollView>
-
-</RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>
